@@ -44,6 +44,7 @@ dependencies:
   sqflite: ^2.2.4+1
   http: ^0.13.5
   path: ^1.8.2
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -100,6 +101,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  assets:
+    - asset/icon/
 
   fonts:
     - family: Pretendard

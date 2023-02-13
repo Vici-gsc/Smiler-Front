@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../atom/main_button.dart';
+import '../molecule/main_button.dart';
 
 class MainMenuList extends StatelessWidget {
   final List<MainMenuListItem> items;
