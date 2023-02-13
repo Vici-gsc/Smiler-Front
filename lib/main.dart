@@ -40,10 +40,10 @@ class SmilerApp extends StatelessWidget {
               color: ServiceColors.textColor),
           titleSmall: TextStyle(
               fontSize: 15,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w700,
               color: ServiceColors.textColor),
           bodyLarge: TextStyle(fontSize: 20, color: ServiceColors.textColor),
-          bodyMedium: TextStyle(fontSize: 15, color: ServiceColors.textColor),
+          bodyMedium: TextStyle(fontSize: 13, color: ServiceColors.textColor),
           bodySmall: TextStyle(fontSize: 8, color: ServiceColors.textColor),
         ),
       ),

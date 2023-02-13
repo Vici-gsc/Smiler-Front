@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../ui/service_colors.dart';
 import '../atom/smiler_text_button.dart';
 
-class MainButton extends StatelessWidget {
+class ModalButton extends StatelessWidget {
   final String text;
+  final Color color;
   final Function() onTap;
 
-  const MainButton({
+  const ModalButton({
     Key? key,
     required this.text,
+    required this.color,
     required this.onTap,
   }) : super(key: key);
 
@@ -18,10 +19,9 @@ class MainButton extends StatelessWidget {
     return SmilerTextButton(
       onTap: onTap,
       text: text,
-      color: ServiceColors.primaryLight,
-      textStyle: Theme.of(context).textTheme.titleSmall,
-      margin: const EdgeInsets.all(5),
-      padding: const EdgeInsets.all(15),
+      color: color,
+      textStyle: Theme.of(context).textTheme.bodyMedium,
+      padding: const EdgeInsets.all(7),
       borderRadius: BorderRadius.circular(10),
     );
   }

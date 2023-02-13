@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../atom/smiler_text_button.dart';
+
 class WordButton extends StatelessWidget {
   final String word;
   final Color color;
@@ -11,19 +13,13 @@ class WordButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return SmilerTextButton(
       onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(100),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Text(
-          word,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-      ),
+      text: word,
+      color: color,
+      textStyle: Theme.of(context).textTheme.bodyMedium,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      borderRadius: BorderRadius.circular(100),
     );
   }
 }
