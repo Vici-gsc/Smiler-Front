@@ -7,6 +7,10 @@ import 'model/result.dart';
 class Api {
   static const timeLimit = Duration(seconds: 10);
   static const baseUrl = "localhost";
+  static const Map<String, String> defaultHeaders = {
+    "Content-Type": "application/json; charset=UTF-8",
+  };
+
   final http.Client client;
 
   Api(this.client);
@@ -37,6 +41,7 @@ class Api {
     Object? body,
   }) async {
     print("$method $path");
+    final sendHeaders = {...defaultHeaders, ...?headers};
 
     try {
       final http.Response response;
@@ -46,7 +51,7 @@ class Api {
           response = await client
               .get(
                 Uri.parse(baseUrl + path),
-                headers: headers,
+                headers: sendHeaders,
               )
               .timeout(timeLimit);
           break;
@@ -54,7 +59,7 @@ class Api {
           response = await client
               .post(
                 Uri.parse(baseUrl + path),
-                headers: headers,
+                headers: sendHeaders,
                 body: body,
               )
               .timeout(timeLimit);

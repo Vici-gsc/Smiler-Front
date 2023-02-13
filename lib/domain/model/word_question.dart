@@ -5,7 +5,7 @@ part 'word_question.freezed.dart';
 
 @freezed
 class WordQuestion with _$WordQuestion {
-  factory WordQuestion({
+  factory WordQuestion( {
     required String imagePath,
     required List<Emotion> emotionList,
     required Emotion correctEmotion,
