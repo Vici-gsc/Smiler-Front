@@ -14,7 +14,8 @@ class MainMenuList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: items
-            .map((item) => MainButton(text: item.text, onTap: item.onTap))
+            .map((item) => MainButton(
+                text: item.text, onTap: item.onTap, disabled: item.disabled))
             .toList(),
       ),
     );
@@ -24,6 +25,11 @@ class MainMenuList extends StatelessWidget {
 class MainMenuListItem {
   final String text;
   final Function() onTap;
+  final bool disabled;
 
-  const MainMenuListItem({required this.text, required this.onTap});
+  const MainMenuListItem({
+    required this.text,
+    required this.onTap,
+    this.disabled = false,
+  });
 }

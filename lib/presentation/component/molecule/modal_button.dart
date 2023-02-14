@@ -21,7 +21,7 @@ class ModalButton extends StatelessWidget {
       text: text,
       color: color,
       textStyle: Theme.of(context).textTheme.bodyMedium,
-      padding: const EdgeInsets.all(7),
+      padding: const EdgeInsets.all(10),
       borderRadius: BorderRadius.circular(10),
     );
   }

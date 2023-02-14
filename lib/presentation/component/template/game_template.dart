@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smiler/presentation/component/organism/game_footer.dart';
 import 'package:smiler/presentation/component/organism/yes_no_dialog.dart';
 
+import '../../../ui/service_colors.dart';
+
 class GameTemplate extends StatelessWidget {
   final String headerString;
   final Widget? upperChild;
@@ -23,7 +25,7 @@ class GameTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ServiceColors.background,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,6 +40,13 @@ class GameTemplate extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
+            ),
+            const Divider(
+              color: ServiceColors.primaryLight,
+              height: 0,
+              thickness: 2,
+              indent: 20,
+              endIndent: 20,
             ),
             Expanded(
               flex: 2,

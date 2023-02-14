@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../ui/service_colors.dart';
+
 class RoundDialog extends StatelessWidget {
   final Widget? child;
   final EdgeInsetsGeometry? padding;
@@ -13,7 +15,7 @@ class RoundDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       elevation: 0,
-      backgroundColor: Colors.white,
+      backgroundColor: ServiceColors.background,
       child: Padding(
         padding: padding ?? const EdgeInsets.all(10),
         child: child,

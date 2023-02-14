@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smiler/ui/service_assets.dart';
 
+import '../../../ui/service_colors.dart';
+
 class CameraButton extends StatelessWidget {
   final Function() onTap;
 
@@ -13,17 +15,18 @@ class CameraButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: ServiceColors.background,
           borderRadius: BorderRadius.circular(100),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.25),
               spreadRadius: 0,
-              blurRadius: 2,
-              offset: const Offset(1.5, 1.5), // changes position of shadow
+              blurRadius: 3,
+              offset: const Offset(3, 3), // changes position of shadow
             ),
           ],
         ),
+        margin: const EdgeInsets.all(10),
         width: 60,
         height: 60,
         child: SvgPicture.asset(

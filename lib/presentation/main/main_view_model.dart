@@ -4,12 +4,23 @@ import 'package:smiler/presentation/imitating/imitating_screen.dart';
 import 'package:smiler/presentation/word/word_screen.dart';
 
 class MainViewModel with ChangeNotifier {
+  static const snackBar = SnackBar(
+    content: Text("카메라를 사용할 수 없어 실행할 수 없습니다."),
+  );
+  final bool canUseCamera;
+
+  MainViewModel(this.canUseCamera);
+
   void onFaceImitatingMenuTapped(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const ImitatingScreen(),
-      ),
-    );
+    if (canUseCamera) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const ImitatingScreen(),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   void onWordChoiceMenuTapped(BuildContext context) {
@@ -21,10 +32,14 @@ class MainViewModel with ChangeNotifier {
   }
 
   void onFaceExpressionMenuTapped(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const ExpressionScreen(),
-      ),
-    );
+    if (canUseCamera) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const ExpressionScreen(),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }
