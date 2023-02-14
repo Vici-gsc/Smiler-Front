@@ -29,6 +29,7 @@ class ScoringPopup extends StatelessWidget {
               isCorrect ? correctAnimationPath : wrongAnimationPath,
               width: 170,
               height: 170,
+              repeat: false,
             ),
           ),
           Text(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smiler/presentation/component/organism/scoring_popup.dart';
 
 import '../component/molecule/emotion_image.dart';
+import '../component/organism/word_quiz.dart';
 import '../component/template/game_template.dart';
 
 class WordScreen extends StatelessWidget {
@@ -15,7 +17,38 @@ class WordScreen extends StatelessWidget {
       correctAnswerCount: 0,
       upperChild:
           const EmotionImage(url: "https://dummyimage.com/600x400/000/fff"),
-      lowerChild: const SizedBox(),
+      lowerChild: Center(
+        child: WordQuiz(
+          items: const [
+            WordQuizItem(word: "행복", isCorrect: true),
+            WordQuizItem(word: "슬픔", isCorrect: false),
+            WordQuizItem(word: "화남", isCorrect: false),
+            WordQuizItem(word: "놀람", isCorrect: false),
+            WordQuizItem(word: "불안", isCorrect: false),
+          ],
+          onCorrect: (word) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  Future.delayed(const Duration(milliseconds: 2000), () {
+                    Navigator.of(context).pop();
+                  });
+                  return const ScoringPopup(isCorrect: true);
+                });
+          },
+          onWrong: (word) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  Future.delayed(const Duration(milliseconds: 2000), () {
+                    Navigator.of(context).pop();
+                  });
+                  return const ScoringPopup(
+                      isCorrect: false, description: "정답은 '행복'입니다.");
+                });
+          },
+        ),
+      ),
     );
   }
 }
