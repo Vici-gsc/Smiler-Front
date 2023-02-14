@@ -28,24 +28,28 @@ class WordScreen extends StatelessWidget {
           ],
           onCorrect: (word) {
             showDialog(
-                context: context,
-                builder: (context) {
-                  Future.delayed(const Duration(milliseconds: 2000), () {
-                    Navigator.of(context).pop();
-                  });
-                  return const ScoringPopup(isCorrect: true);
+              context: context,
+              builder: (dialogContext) {
+                Future.delayed(const Duration(milliseconds: 2000), () {
+                  Navigator.of(dialogContext).pop();
                 });
+                return const ScoringPopup(isCorrect: true);
+              },
+              barrierDismissible: false,
+            );
           },
           onWrong: (word) {
             showDialog(
-                context: context,
-                builder: (context) {
-                  Future.delayed(const Duration(milliseconds: 2000), () {
-                    Navigator.of(context).pop();
-                  });
-                  return const ScoringPopup(
-                      isCorrect: false, description: "정답은 '행복'입니다.");
+              context: context,
+              builder: (dialogContext) {
+                Future.delayed(const Duration(milliseconds: 2000), () {
+                  Navigator.of(dialogContext).pop();
                 });
+                return const ScoringPopup(
+                    isCorrect: false, description: "정답은 '행복'입니다.");
+              },
+              barrierDismissible: false,
+            );
           },
         ),
       ),
