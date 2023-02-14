@@ -39,11 +39,15 @@ dependencies:
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.0
   provider: ^6.0.5
-  cached_network_image: ^3.2.3
   flutter_state_notifier: ^0.7.1
   sqflite: ^2.2.4+1
   http: ^0.13.5
   path: ^1.8.2
+  flutter_svg: ^1.1.6
+  camera: ^0.10.3
+  path_provider: ^2.0.12
+  lottie: ^2.2.0
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:
@@ -100,6 +104,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  assets:
+    - asset/icon/
+    - asset/animation/
 
   fonts:
     - family: Pretendard

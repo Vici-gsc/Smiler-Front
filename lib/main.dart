@@ -29,6 +29,7 @@ class SmilerApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         fontFamily: "Pretendard",
+        primaryColor: ServiceColors.primary,
         textTheme: const TextTheme(
           titleLarge: TextStyle(
               fontSize: 50,
@@ -40,11 +41,18 @@ class SmilerApp extends StatelessWidget {
               color: ServiceColors.textColor),
           titleSmall: TextStyle(
               fontSize: 15,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w700,
               color: ServiceColors.textColor),
-          bodyLarge: TextStyle(fontSize: 50, color: ServiceColors.textColor),
-          bodyMedium: TextStyle(fontSize: 20, color: ServiceColors.textColor),
-          bodySmall: TextStyle(fontSize: 15, color: ServiceColors.textColor),
+          bodyLarge: TextStyle(fontSize: 20, color: ServiceColors.textColor),
+          bodyMedium: TextStyle(fontSize: 14, color: ServiceColors.textColor),
+          bodySmall: TextStyle(
+              fontSize: 9,
+              color: ServiceColors.textColor,
+              fontWeight: FontWeight.w500),
+        ),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: ServiceColors.primary,
+          primary: ServiceColors.primary,
         ),
       ),
       home: const MainScreen(),
