@@ -47,6 +47,7 @@ dependencies:
   flutter_svg: ^1.1.6
   camera: ^0.10.3
   path_provider: ^2.0.12
+  lottie: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -106,6 +107,7 @@ flutter:
 
   assets:
     - asset/icon/
+    - asset/animation/
 
   fonts:
     - family: Pretendard

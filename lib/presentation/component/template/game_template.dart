@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smiler/presentation/component/organism/game_footer.dart';
-import 'package:smiler/presentation/component/organism/smiler_modal.dart';
+import 'package:smiler/presentation/component/organism/yes_no_dialog.dart';
 
 class GameTemplate extends StatelessWidget {
   final String headerString;
@@ -51,7 +51,7 @@ class GameTemplate extends StatelessWidget {
               onExitButtonTapped: () {
                 showDialog(
                   context: context,
-                  builder: (dialogContext) => SmilerModal(
+                  builder: (dialogContext) => YesNoDialog(
                       title:
                           "지금까지 $currentQuestionCount문제 중 $correctAnswerCount문제를 맞췄어요.",
                       description: "정말로 연습을 그만할까요?",
@@ -69,7 +69,7 @@ class GameTemplate extends StatelessWidget {
               onSkipButtonTapped: () {
                 showDialog(
                   context: context,
-                  builder: (dialogContext) => SmilerModal(
+                  builder: (dialogContext) => YesNoDialog(
                       title: "정말로 이 문제를 스킵할까요?",
                       description: "스킵한 문제는 다시 풀 수 없어요.",
                       positiveButtonLabel: "스킵하기",
