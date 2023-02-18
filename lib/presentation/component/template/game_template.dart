@@ -120,6 +120,7 @@ class GameTemplate extends StatelessWidget {
             onSkip();
           },
           onNegativeButtonTap: () {
+            AlertFlushBar("연습을 종료하였습니다.").show(context);
             Navigator.of(dialogContext).pop();
           }),
     );
