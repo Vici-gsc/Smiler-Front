@@ -15,6 +15,7 @@ class WordScreen extends StatelessWidget {
       onSkip: () {},
       currentQuestionCount: 0,
       correctAnswerCount: 0,
+      isLoading: false,
       upperChild:
           const EmotionImage(url: "https://dummyimage.com/600x400/000/fff"),
       lowerChild: Center(

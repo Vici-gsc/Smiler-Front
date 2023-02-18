@@ -33,7 +33,7 @@ class WordQuiz extends StatelessWidget {
                 if (i * maxRowItemCount + j < items.length)
                   WordButton(
                     word: items[i * maxRowItemCount + j].word,
-                    color: ServiceColors.secondary,
+                    color: ServiceColors.primaryLight,
                     onTap: () {
                       items[i * maxRowItemCount + j].isCorrect
                           ? onCorrect?.call(items[i * maxRowItemCount + j].word)

@@ -17,6 +17,7 @@ class ExpressionScreen extends StatelessWidget {
       onSkip: () {},
       currentQuestionCount: 0,
       correctAnswerCount: 0,
+      isLoading: false,
       upperChild: Center(
         child: Text(
           "기쁨",
