@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smiler/presentation/component/molecule/alert_flush_bar.dart';
 import 'package:smiler/presentation/component/organism/game_footer.dart';
 import 'package:smiler/presentation/component/organism/yes_no_dialog.dart';
 
@@ -115,6 +116,7 @@ class GameTemplate extends StatelessWidget {
           negativeButtonLabel: "마저풀기",
           onPositiveButtonTap: () {
             Navigator.of(dialogContext).pop();
+            AlertFlushBar("문제가 스킵되었습니다.").show(context);
             onSkip();
           },
           onNegativeButtonTap: () {
