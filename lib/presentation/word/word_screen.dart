@@ -54,6 +54,6 @@ class _WordScreenState extends State<WordScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<WordViewModel>().load();
+    context.read<WordViewModel>().load(isInit: true);
   }
 }

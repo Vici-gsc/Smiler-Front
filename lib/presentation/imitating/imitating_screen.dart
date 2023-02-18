@@ -43,6 +43,6 @@ class _ImitatingScreenState extends State<ImitatingScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<ImitatingViewModel>().load();
+    context.read<ImitatingViewModel>().load(isInit: true);
   }
 }

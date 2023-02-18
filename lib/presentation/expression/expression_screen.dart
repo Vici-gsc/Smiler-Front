@@ -47,6 +47,6 @@ class _ExpressionScreenState extends State<ExpressionScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<ExpressionViewModel>().load();
+    context.read<ExpressionViewModel>().load(isInit: true);
   }
 }

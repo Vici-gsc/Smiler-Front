@@ -29,11 +29,14 @@ class ImitatingViewModel with ChangeNotifier {
     );
   }
 
-  void load() async {
+  void load({bool isInit = false}) async {
     _state = _state.copyWith(
       isLoading: true,
     );
-    notifyListeners();
+
+    if (!isInit) {
+      notifyListeners();
+    }
 
     // TODO: 서버에서 이미지 불러오기
     final answer = Emotion.getRandomEmotion(except: _state.answerEmotion);
