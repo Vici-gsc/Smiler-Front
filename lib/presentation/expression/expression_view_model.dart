@@ -10,20 +10,33 @@ class ExpressionViewModel with ChangeNotifier {
   ExpressionViewModel(this.camera);
 
   ExpressionState _state = ExpressionState(
-      questionCount: 0,
-      correctAnswerCount: 0,
-      answerEmotion: Emotion.getRandomEmotion(),
-      isLoading: false);
+    questionCount: -1,
+    correctAnswerCount: 0,
+    answerEmotion: null,
+    isLoading: false,
+  );
 
   ExpressionState get state => _state;
 
-  void load() {
+  void exit() {
+    _state = ExpressionState(
+      questionCount: -1,
+      correctAnswerCount: 0,
+      answerEmotion: null,
+      isLoading: false,
+    );
+  }
+
+  void load({bool isInit = false}) {
     _state = _state.copyWith(
       questionCount: _state.questionCount + 1,
       answerEmotion: Emotion.getRandomEmotion(except: _state.answerEmotion),
       isLoading: false,
     );
-    notifyListeners();
+
+    if (!isInit) {
+      notifyListeners();
+    }
   }
 
   void checkAnswer(

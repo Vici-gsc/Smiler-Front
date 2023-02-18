@@ -9,6 +9,7 @@ class GameTemplate extends StatelessWidget {
   final Widget? upperChild;
   final Widget? lowerChild;
   final Function() onSkip;
+  final Function()? onExit;
   final int currentQuestionCount;
   final int correctAnswerCount;
   final bool isLoading;
@@ -19,6 +20,7 @@ class GameTemplate extends StatelessWidget {
       this.upperChild,
       this.lowerChild,
       required this.onSkip,
+      this.onExit,
       required this.currentQuestionCount,
       required this.correctAnswerCount,
       required this.isLoading})
@@ -95,6 +97,7 @@ class GameTemplate extends StatelessWidget {
           onPositiveButtonTap: () {
             Navigator.of(dialogContext).pop();
             Navigator.of(context).pop();
+            onExit?.call();
           },
           onNegativeButtonTap: () {
             Navigator.of(dialogContext).pop();

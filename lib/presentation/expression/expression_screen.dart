@@ -12,10 +12,12 @@ class ExpressionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<ExpressionViewModel>();
+    viewModel.load(isInit: true);
 
     return GameTemplate(
       headerString: "표정을 지어 보아요!",
       onSkip: () => viewModel.load(),
+      onExit: () => viewModel.exit(),
       currentQuestionCount: viewModel.state.questionCount,
       correctAnswerCount: viewModel.state.correctAnswerCount,
       isLoading: viewModel.state.isLoading,
