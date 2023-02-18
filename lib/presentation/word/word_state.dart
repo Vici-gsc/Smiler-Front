@@ -9,8 +9,9 @@ class WordState with _$WordState {
   factory WordState({
     required int questionCount,
     required int correctAnswerCount,
-    required Emotion answerEmotion,
+    required Emotion? answerEmotion,
     required List<Emotion> emotionChoices,
+    required String? imageUrl,
     required bool isLoading,
   }) = _WordState;
 }

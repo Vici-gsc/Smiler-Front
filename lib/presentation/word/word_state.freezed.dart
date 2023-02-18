@@ -17,12 +17,13 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$WordState {
   int get questionCount => throw _privateConstructorUsedError;
-
   int get correctAnswerCount => throw _privateConstructorUsedError;
 
-  Emotion get answerEmotion => throw _privateConstructorUsedError;
+  Emotion? get answerEmotion => throw _privateConstructorUsedError;
 
   List<Emotion> get emotionChoices => throw _privateConstructorUsedError;
+
+  String? get imageUrl => throw _privateConstructorUsedError;
 
   bool get isLoading => throw _privateConstructorUsedError;
 
@@ -35,13 +36,13 @@ mixin _$WordState {
 abstract class $WordStateCopyWith<$Res> {
   factory $WordStateCopyWith(WordState value, $Res Function(WordState) then) =
       _$WordStateCopyWithImpl<$Res, WordState>;
-
   @useResult
   $Res call(
       {int questionCount,
       int correctAnswerCount,
-      Emotion answerEmotion,
+      Emotion? answerEmotion,
       List<Emotion> emotionChoices,
+      String? imageUrl,
       bool isLoading});
 }
 
@@ -52,7 +53,6 @@ class _$WordStateCopyWithImpl<$Res, $Val extends WordState>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -61,8 +61,9 @@ class _$WordStateCopyWithImpl<$Res, $Val extends WordState>
   $Res call({
     Object? questionCount = null,
     Object? correctAnswerCount = null,
-    Object? answerEmotion = null,
+    Object? answerEmotion = freezed,
     Object? emotionChoices = null,
+    Object? imageUrl = freezed,
     Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
@@ -74,14 +75,18 @@ class _$WordStateCopyWithImpl<$Res, $Val extends WordState>
           ? _value.correctAnswerCount
           : correctAnswerCount // ignore: cast_nullable_to_non_nullable
               as int,
-      answerEmotion: null == answerEmotion
+      answerEmotion: freezed == answerEmotion
           ? _value.answerEmotion
           : answerEmotion // ignore: cast_nullable_to_non_nullable
-              as Emotion,
+              as Emotion?,
       emotionChoices: null == emotionChoices
           ? _value.emotionChoices
           : emotionChoices // ignore: cast_nullable_to_non_nullable
               as List<Emotion>,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -95,14 +100,14 @@ abstract class _$$_WordStateCopyWith<$Res> implements $WordStateCopyWith<$Res> {
   factory _$$_WordStateCopyWith(
           _$_WordState value, $Res Function(_$_WordState) then) =
       __$$_WordStateCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call(
       {int questionCount,
       int correctAnswerCount,
-      Emotion answerEmotion,
+      Emotion? answerEmotion,
       List<Emotion> emotionChoices,
+      String? imageUrl,
       bool isLoading});
 }
 
@@ -119,8 +124,9 @@ class __$$_WordStateCopyWithImpl<$Res>
   $Res call({
     Object? questionCount = null,
     Object? correctAnswerCount = null,
-    Object? answerEmotion = null,
+    Object? answerEmotion = freezed,
     Object? emotionChoices = null,
+    Object? imageUrl = freezed,
     Object? isLoading = null,
   }) {
     return _then(_$_WordState(
@@ -132,14 +138,18 @@ class __$$_WordStateCopyWithImpl<$Res>
           ? _value.correctAnswerCount
           : correctAnswerCount // ignore: cast_nullable_to_non_nullable
               as int,
-      answerEmotion: null == answerEmotion
+      answerEmotion: freezed == answerEmotion
           ? _value.answerEmotion
           : answerEmotion // ignore: cast_nullable_to_non_nullable
-              as Emotion,
+              as Emotion?,
       emotionChoices: null == emotionChoices
           ? _value._emotionChoices
           : emotionChoices // ignore: cast_nullable_to_non_nullable
               as List<Emotion>,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -156,6 +166,7 @@ class _$_WordState implements _WordState {
       required this.correctAnswerCount,
       required this.answerEmotion,
       required final List<Emotion> emotionChoices,
+      required this.imageUrl,
       required this.isLoading})
       : _emotionChoices = emotionChoices;
 
@@ -164,7 +175,7 @@ class _$_WordState implements _WordState {
   @override
   final int correctAnswerCount;
   @override
-  final Emotion answerEmotion;
+  final Emotion? answerEmotion;
   final List<Emotion> _emotionChoices;
 
   @override
@@ -175,11 +186,13 @@ class _$_WordState implements _WordState {
   }
 
   @override
+  final String? imageUrl;
+  @override
   final bool isLoading;
 
   @override
   String toString() {
-    return 'WordState(questionCount: $questionCount, correctAnswerCount: $correctAnswerCount, answerEmotion: $answerEmotion, emotionChoices: $emotionChoices, isLoading: $isLoading)';
+    return 'WordState(questionCount: $questionCount, correctAnswerCount: $correctAnswerCount, answerEmotion: $answerEmotion, emotionChoices: $emotionChoices, imageUrl: $imageUrl, isLoading: $isLoading)';
   }
 
   @override
@@ -195,6 +208,8 @@ class _$_WordState implements _WordState {
                 other.answerEmotion == answerEmotion) &&
             const DeepCollectionEquality()
                 .equals(other._emotionChoices, _emotionChoices) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading));
   }
@@ -206,6 +221,7 @@ class _$_WordState implements _WordState {
       correctAnswerCount,
       answerEmotion,
       const DeepCollectionEquality().hash(_emotionChoices),
+      imageUrl,
       isLoading);
 
   @JsonKey(ignore: true)
@@ -219,8 +235,9 @@ abstract class _WordState implements WordState {
   factory _WordState(
       {required final int questionCount,
       required final int correctAnswerCount,
-      required final Emotion answerEmotion,
+      required final Emotion? answerEmotion,
       required final List<Emotion> emotionChoices,
+      required final String? imageUrl,
       required final bool isLoading}) = _$_WordState;
 
   @override
@@ -230,10 +247,13 @@ abstract class _WordState implements WordState {
   int get correctAnswerCount;
 
   @override
-  Emotion get answerEmotion;
+  Emotion? get answerEmotion;
 
   @override
   List<Emotion> get emotionChoices;
+
+  @override
+  String? get imageUrl;
 
   @override
   bool get isLoading;
