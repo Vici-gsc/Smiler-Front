@@ -17,10 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ExpressionState {
   int get questionCount => throw _privateConstructorUsedError;
-
   int get correctAnswerCount => throw _privateConstructorUsedError;
 
-  Emotion get answerEmotion => throw _privateConstructorUsedError;
+  Emotion? get answerEmotion => throw _privateConstructorUsedError;
 
   bool get isLoading => throw _privateConstructorUsedError;
 
@@ -34,12 +33,11 @@ abstract class $ExpressionStateCopyWith<$Res> {
   factory $ExpressionStateCopyWith(
           ExpressionState value, $Res Function(ExpressionState) then) =
       _$ExpressionStateCopyWithImpl<$Res, ExpressionState>;
-
   @useResult
   $Res call(
       {int questionCount,
       int correctAnswerCount,
-      Emotion answerEmotion,
+      Emotion? answerEmotion,
       bool isLoading});
 }
 
@@ -50,7 +48,6 @@ class _$ExpressionStateCopyWithImpl<$Res, $Val extends ExpressionState>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -59,7 +56,7 @@ class _$ExpressionStateCopyWithImpl<$Res, $Val extends ExpressionState>
   $Res call({
     Object? questionCount = null,
     Object? correctAnswerCount = null,
-    Object? answerEmotion = null,
+    Object? answerEmotion = freezed,
     Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
@@ -71,10 +68,10 @@ class _$ExpressionStateCopyWithImpl<$Res, $Val extends ExpressionState>
           ? _value.correctAnswerCount
           : correctAnswerCount // ignore: cast_nullable_to_non_nullable
               as int,
-      answerEmotion: null == answerEmotion
+      answerEmotion: freezed == answerEmotion
           ? _value.answerEmotion
           : answerEmotion // ignore: cast_nullable_to_non_nullable
-              as Emotion,
+              as Emotion?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -89,13 +86,12 @@ abstract class _$$_ExpressionStateCopyWith<$Res>
   factory _$$_ExpressionStateCopyWith(
           _$_ExpressionState value, $Res Function(_$_ExpressionState) then) =
       __$$_ExpressionStateCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call(
       {int questionCount,
       int correctAnswerCount,
-      Emotion answerEmotion,
+      Emotion? answerEmotion,
       bool isLoading});
 }
 
@@ -112,7 +108,7 @@ class __$$_ExpressionStateCopyWithImpl<$Res>
   $Res call({
     Object? questionCount = null,
     Object? correctAnswerCount = null,
-    Object? answerEmotion = null,
+    Object? answerEmotion = freezed,
     Object? isLoading = null,
   }) {
     return _then(_$_ExpressionState(
@@ -124,10 +120,10 @@ class __$$_ExpressionStateCopyWithImpl<$Res>
           ? _value.correctAnswerCount
           : correctAnswerCount // ignore: cast_nullable_to_non_nullable
               as int,
-      answerEmotion: null == answerEmotion
+      answerEmotion: freezed == answerEmotion
           ? _value.answerEmotion
           : answerEmotion // ignore: cast_nullable_to_non_nullable
-              as Emotion,
+              as Emotion?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -150,7 +146,7 @@ class _$_ExpressionState implements _ExpressionState {
   @override
   final int correctAnswerCount;
   @override
-  final Emotion answerEmotion;
+  final Emotion? answerEmotion;
   @override
   final bool isLoading;
 
@@ -189,7 +185,7 @@ abstract class _ExpressionState implements ExpressionState {
   factory _ExpressionState(
       {required final int questionCount,
       required final int correctAnswerCount,
-      required final Emotion answerEmotion,
+      required final Emotion? answerEmotion,
       required final bool isLoading}) = _$_ExpressionState;
 
   @override
@@ -199,11 +195,10 @@ abstract class _ExpressionState implements ExpressionState {
   int get correctAnswerCount;
 
   @override
-  Emotion get answerEmotion;
+  Emotion? get answerEmotion;
 
   @override
   bool get isLoading;
-
   @override
   @JsonKey(ignore: true)
   _$$_ExpressionStateCopyWith<_$_ExpressionState> get copyWith =>

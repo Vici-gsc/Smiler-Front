@@ -9,7 +9,7 @@ class ExpressionState with _$ExpressionState {
   factory ExpressionState({
     required int questionCount,
     required int correctAnswerCount,
-    required Emotion answerEmotion,
+    required Emotion? answerEmotion,
     required bool isLoading,
   }) = _ExpressionState;
 }

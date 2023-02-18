@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:smiler/presentation/component/organism/camera_widget.dart';
 import 'package:smiler/presentation/expression/expression_view_model.dart';
 
+import '../component/organism/scoring_popup.dart';
 import '../component/template/game_template.dart';
 
 class ExpressionScreen extends StatelessWidget {
@@ -14,20 +15,26 @@ class ExpressionScreen extends StatelessWidget {
 
     return GameTemplate(
       headerString: "표정을 지어 보아요!",
-      onSkip: () {},
-      currentQuestionCount: 0,
-      correctAnswerCount: 0,
-      isLoading: false,
+      onSkip: () => viewModel.load(),
+      currentQuestionCount: viewModel.state.questionCount,
+      correctAnswerCount: viewModel.state.correctAnswerCount,
+      isLoading: viewModel.state.isLoading,
       upperChild: Center(
         child: Text(
-          "기쁨",
+          viewModel.state.answerEmotion?.koreanName ?? "",
           style:
               Theme.of(context).textTheme.titleMedium!.apply(fontSizeDelta: 20),
         ),
       ),
       lowerChild: CameraWidget(
         camera: viewModel.camera!,
-        onCaptured: (p) {},
+        onCaptured: (path) {
+          viewModel.checkAnswer(
+            path,
+            () => const ScoringPopup(isCorrect: true).show(context),
+            () => const ScoringPopup(isCorrect: false).show(context),
+          );
+        },
       ),
     );
   }
