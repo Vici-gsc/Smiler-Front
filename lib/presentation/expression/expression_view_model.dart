@@ -13,7 +13,7 @@ class ExpressionViewModel with ChangeNotifier {
     questionCount: -1,
     correctAnswerCount: 0,
     answerEmotion: null,
-    isLoading: false,
+    isLoading: true,
   );
 
   ExpressionState get state => _state;
@@ -23,7 +23,7 @@ class ExpressionViewModel with ChangeNotifier {
       questionCount: -1,
       correctAnswerCount: 0,
       answerEmotion: null,
-      isLoading: false,
+      isLoading: true,
     );
   }
 

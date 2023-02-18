@@ -6,14 +6,17 @@ import 'package:smiler/presentation/expression/expression_view_model.dart';
 import '../component/organism/scoring_popup.dart';
 import '../component/template/game_template.dart';
 
-class ExpressionScreen extends StatelessWidget {
+class ExpressionScreen extends StatefulWidget {
   const ExpressionScreen({Key? key}) : super(key: key);
 
   @override
+  State<ExpressionScreen> createState() => _ExpressionScreenState();
+}
+
+class _ExpressionScreenState extends State<ExpressionScreen> {
+  @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<ExpressionViewModel>();
-    viewModel.load(isInit: true);
-
     return GameTemplate(
       headerString: "표정을 지어 보아요!",
       onSkip: () => viewModel.load(),
@@ -25,7 +28,7 @@ class ExpressionScreen extends StatelessWidget {
         child: Text(
           viewModel.state.answerEmotion?.koreanName ?? "",
           style:
-              Theme.of(context).textTheme.titleMedium!.apply(fontSizeDelta: 20),
+          Theme.of(context).textTheme.titleMedium!.apply(fontSizeDelta: 20),
         ),
       ),
       lowerChild: CameraWidget(
@@ -39,5 +42,11 @@ class ExpressionScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<ExpressionViewModel>().load();
   }
 }

@@ -20,7 +20,9 @@ mixin _$ImitatingState {
 
   int get correctAnswerCount => throw _privateConstructorUsedError;
 
-  Emotion get answerEmotion => throw _privateConstructorUsedError;
+  Emotion? get answerEmotion => throw _privateConstructorUsedError;
+
+  String? get imageUrl => throw _privateConstructorUsedError;
 
   bool get isLoading => throw _privateConstructorUsedError;
 
@@ -34,12 +36,12 @@ abstract class $ImitatingStateCopyWith<$Res> {
   factory $ImitatingStateCopyWith(
           ImitatingState value, $Res Function(ImitatingState) then) =
       _$ImitatingStateCopyWithImpl<$Res, ImitatingState>;
-
   @useResult
   $Res call(
       {int questionCount,
       int correctAnswerCount,
-      Emotion answerEmotion,
+      Emotion? answerEmotion,
+      String? imageUrl,
       bool isLoading});
 }
 
@@ -50,7 +52,6 @@ class _$ImitatingStateCopyWithImpl<$Res, $Val extends ImitatingState>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -59,7 +60,8 @@ class _$ImitatingStateCopyWithImpl<$Res, $Val extends ImitatingState>
   $Res call({
     Object? questionCount = null,
     Object? correctAnswerCount = null,
-    Object? answerEmotion = null,
+    Object? answerEmotion = freezed,
+    Object? imageUrl = freezed,
     Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
@@ -71,10 +73,14 @@ class _$ImitatingStateCopyWithImpl<$Res, $Val extends ImitatingState>
           ? _value.correctAnswerCount
           : correctAnswerCount // ignore: cast_nullable_to_non_nullable
               as int,
-      answerEmotion: null == answerEmotion
+      answerEmotion: freezed == answerEmotion
           ? _value.answerEmotion
           : answerEmotion // ignore: cast_nullable_to_non_nullable
-              as Emotion,
+              as Emotion?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -89,13 +95,13 @@ abstract class _$$_ImitatingStateCopyWith<$Res>
   factory _$$_ImitatingStateCopyWith(
           _$_ImitatingState value, $Res Function(_$_ImitatingState) then) =
       __$$_ImitatingStateCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call(
       {int questionCount,
       int correctAnswerCount,
-      Emotion answerEmotion,
+      Emotion? answerEmotion,
+      String? imageUrl,
       bool isLoading});
 }
 
@@ -112,7 +118,8 @@ class __$$_ImitatingStateCopyWithImpl<$Res>
   $Res call({
     Object? questionCount = null,
     Object? correctAnswerCount = null,
-    Object? answerEmotion = null,
+    Object? answerEmotion = freezed,
+    Object? imageUrl = freezed,
     Object? isLoading = null,
   }) {
     return _then(_$_ImitatingState(
@@ -124,10 +131,14 @@ class __$$_ImitatingStateCopyWithImpl<$Res>
           ? _value.correctAnswerCount
           : correctAnswerCount // ignore: cast_nullable_to_non_nullable
               as int,
-      answerEmotion: null == answerEmotion
+      answerEmotion: freezed == answerEmotion
           ? _value.answerEmotion
           : answerEmotion // ignore: cast_nullable_to_non_nullable
-              as Emotion,
+              as Emotion?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -143,6 +154,7 @@ class _$_ImitatingState implements _ImitatingState {
       {required this.questionCount,
       required this.correctAnswerCount,
       required this.answerEmotion,
+      required this.imageUrl,
       required this.isLoading});
 
   @override
@@ -150,13 +162,15 @@ class _$_ImitatingState implements _ImitatingState {
   @override
   final int correctAnswerCount;
   @override
-  final Emotion answerEmotion;
+  final Emotion? answerEmotion;
+  @override
+  final String? imageUrl;
   @override
   final bool isLoading;
 
   @override
   String toString() {
-    return 'ImitatingState(questionCount: $questionCount, correctAnswerCount: $correctAnswerCount, answerEmotion: $answerEmotion, isLoading: $isLoading)';
+    return 'ImitatingState(questionCount: $questionCount, correctAnswerCount: $correctAnswerCount, answerEmotion: $answerEmotion, imageUrl: $imageUrl, isLoading: $isLoading)';
   }
 
   @override
@@ -170,13 +184,15 @@ class _$_ImitatingState implements _ImitatingState {
                 other.correctAnswerCount == correctAnswerCount) &&
             (identical(other.answerEmotion, answerEmotion) ||
                 other.answerEmotion == answerEmotion) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, questionCount, correctAnswerCount, answerEmotion, isLoading);
+  int get hashCode => Object.hash(runtimeType, questionCount,
+      correctAnswerCount, answerEmotion, imageUrl, isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -189,7 +205,8 @@ abstract class _ImitatingState implements ImitatingState {
   factory _ImitatingState(
       {required final int questionCount,
       required final int correctAnswerCount,
-      required final Emotion answerEmotion,
+      required final Emotion? answerEmotion,
+      required final String? imageUrl,
       required final bool isLoading}) = _$_ImitatingState;
 
   @override
@@ -199,7 +216,10 @@ abstract class _ImitatingState implements ImitatingState {
   int get correctAnswerCount;
 
   @override
-  Emotion get answerEmotion;
+  Emotion? get answerEmotion;
+
+  @override
+  String? get imageUrl;
 
   @override
   bool get isLoading;

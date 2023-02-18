@@ -18,9 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ExpressionState {
   int get questionCount => throw _privateConstructorUsedError;
   int get correctAnswerCount => throw _privateConstructorUsedError;
-
   Emotion? get answerEmotion => throw _privateConstructorUsedError;
-
   bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -190,13 +188,10 @@ abstract class _ExpressionState implements ExpressionState {
 
   @override
   int get questionCount;
-
   @override
   int get correctAnswerCount;
-
   @override
   Emotion? get answerEmotion;
-
   @override
   bool get isLoading;
   @override

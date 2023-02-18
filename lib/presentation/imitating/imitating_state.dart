@@ -9,7 +9,8 @@ class ImitatingState with _$ImitatingState {
   factory ImitatingState({
     required int questionCount,
     required int correctAnswerCount,
-    required Emotion answerEmotion,
+    required Emotion? answerEmotion,
+    required String? imageUrl,
     required bool isLoading,
   }) = _ImitatingState;
 }
