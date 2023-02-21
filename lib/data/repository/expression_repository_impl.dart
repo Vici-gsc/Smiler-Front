@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:smiler/data/source/model/result.dart';
 import 'package:smiler/domain/model/scoring_result.dart';
 import 'package:smiler/domain/repository/expression_repository.dart';
@@ -15,19 +12,9 @@ class ExpressionRepositoryImpl implements ExpressionRepository {
   @override
   Future<Result<ScoringResult>> isCorrectExpression(
       String answerEmotionName, String imagePath) async {
-    // Load image
-    File imageFile = File(imagePath);
-    List<int> imageBytes = imageFile.readAsBytesSync();
-    String base64Image = base64Encode(imageBytes);
-
-    // Send image
-    final result = await api.post(
+    final result = await api.postFile(
       "/expression?feeling=$answerEmotionName",
-      body: jsonEncode(
-        [
-          {"image": base64Image}
-        ],
-      ),
+      imagePath,
     );
 
     return result.when(
