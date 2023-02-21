@@ -1,10 +1,11 @@
+import '../../data/source/model/result.dart';
 import '../model/history.dart';
 
 abstract class HistoryRepository {
-  Future<List<History>> getHistories();
+  Future<Result<List<History>>> getHistories();
 
-  Future<void> addHistory(int questionTypeId, int correctAnswerId,
+  Future<Result<void>> addHistory(int questionTypeId, int correctAnswerId,
       int userAnswerId, bool isCorrect);
 
-  Future<void> deleteAllHistories();
+  Future<Result<void>> deleteAllHistories();
 }

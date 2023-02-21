@@ -2,12 +2,16 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../domain/model/emotion.dart';
+import '../../domain/usecase/get_photo_use_case.dart';
+import '../../domain/usecase/score_imitation_use_case.dart';
 import 'imitating_state.dart';
 
 class ImitatingViewModel with ChangeNotifier {
   final CameraDescription? camera;
+  final GetPhotoUseCase _getPhotoUseCase;
+  final ScoreImitationUseCase _scoreUseCase;
 
-  ImitatingViewModel(this.camera);
+  ImitatingViewModel(this.camera, this._getPhotoUseCase, this._scoreUseCase);
 
   ImitatingState _state = ImitatingState(
     questionCount: -1,
@@ -29,7 +33,10 @@ class ImitatingViewModel with ChangeNotifier {
     );
   }
 
-  void load({bool isInit = false}) async {
+  void load({
+    bool isInit = false,
+    Function(String error)? onError,
+  }) async {
     _state = _state.copyWith(
       isLoading: true,
     );
@@ -38,41 +45,62 @@ class ImitatingViewModel with ChangeNotifier {
       notifyListeners();
     }
 
-    // TODO: 서버에서 이미지 불러오기
-    final answer = Emotion.getRandomEmotion(except: _state.answerEmotion);
-    await Future.delayed(const Duration(microseconds: 1000));
-    // ==========
-
-    _state = _state.copyWith(
-      questionCount: _state.questionCount + 1,
-      answerEmotion: answer,
-      imageUrl: 'https://dummyimage.com/600x400/000/fff&text=Dummy+Image',
-      isLoading: false,
+    final answer = Emotion.getRandomEmotion(
+      exceptions: _state.answerEmotion != null ? [_state.answerEmotion!] : [],
     );
-    notifyListeners();
+    final result = await _getPhotoUseCase.execute(answer);
+
+    result.when(
+      success: (imageUrl) {
+        _state = _state.copyWith(
+          questionCount: _state.questionCount + 1,
+          answerEmotion: answer,
+          imageUrl: imageUrl,
+          isLoading: false,
+        );
+        notifyListeners();
+      },
+      failure: (error) {
+        _state = _state.copyWith(
+          isLoading: false,
+        );
+        notifyListeners();
+        onError?.call(error);
+      },
+    );
   }
 
   void checkAnswer(
-      String imagePath, Function() onCorrect, Function() onWrong) async {
+    String imagePath, {
+    Function(bool isCorrect)? onFinished,
+    Function(String error)? onError,
+  }) async {
     _state = _state.copyWith(
       isLoading: true,
     );
     notifyListeners();
 
-    // TODO: 이미지 분석 후 정답 여부 판단
-    await Future.delayed(const Duration(microseconds: 1000));
-    bool isCorrect = true;
-    // ==========
+    final result = await _scoreUseCase.execute(
+      _state.answerEmotion!,
+      imagePath,
+    );
 
-    if (isCorrect) {
-      _state = _state.copyWith(
-        correctAnswerCount: _state.correctAnswerCount + 1,
-      );
-      onCorrect();
-    } else {
-      onWrong();
-    }
-
-    load();
+    result.when(
+      success: (scoringResult) {
+        if (scoringResult.isCorrect) {
+          _state = _state.copyWith(
+            correctAnswerCount: _state.correctAnswerCount + 1,
+          );
+        }
+        onFinished?.call(scoringResult.isCorrect);
+        load(onError: onError);
+      },
+      failure: (error) {
+        _state = _state.copyWith(
+          isLoading: false,
+        );
+        onError?.call(error);
+      },
+    );
   }
 }

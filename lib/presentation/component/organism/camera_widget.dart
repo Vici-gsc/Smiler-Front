@@ -57,27 +57,27 @@ class _CameraWidgetState extends State<CameraWidget> {
                     ),
                   ),
                 ),
-                CameraButton(onTap: () async {
-                  try {
-                    await _initializeControllerFuture;
-                    final path = await _controller.takePicture();
-                    widget.onCaptured(path.path);
-                  } catch (e) {
-                    print(e);
-                  }
-                }),
+                CameraButton(
+                  onTap: () async {
+                    try {
+                      await _initializeControllerFuture;
+                      final path = await _controller.takePicture();
+                      widget.onCaptured(path.path);
+                    } catch (e) {
+                      print(e);
+                    }
+                  },
+                ),
               ],
             );
           } else if (snapshot.hasError) {
             print(snapshot.error);
-            return _CameraPermissionWidget(
-              onGranted: () {
-                setState(() {
-                  _disposeCamera();
-                  _initCamera();
-                });
-              },
-            );
+            return _CameraPermissionWidget(onGranted: () {
+              setState(() {
+                _disposeCamera();
+                _initCamera();
+              });
+            });
           } else {
             return const Center(child: CircularProgressIndicator());
           }

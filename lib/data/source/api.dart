@@ -8,7 +8,9 @@ class Api {
   static const timeLimit = Duration(seconds: 10);
   static const baseUrl = "localhost";
 
-  Api();
+  final http.Client client;
+
+  Api(this.client);
 
   Future<Result<dynamic>> post(String path,
       {Map<String, String>? headers, Object? body}) async {
@@ -35,7 +37,7 @@ class Api {
     request.headers.addAll(headers ?? {});
     request.files.add(await http.MultipartFile.fromPath('file', uri));
 
-    final streamedResponse = await request.send();
+    final streamedResponse = await client.send(request);
     final response = await http.Response.fromStream(streamedResponse);
 
     if (response.statusCode ~/ 100 == 2) {
@@ -60,7 +62,7 @@ class Api {
 
       switch (method) {
         case HttpMethod.get:
-          response = await http
+          response = await client
               .get(
                 Uri.parse(baseUrl + path),
                 headers: sendHeaders,
@@ -68,7 +70,7 @@ class Api {
               .timeout(timeLimit);
           break;
         case HttpMethod.post:
-          response = await http
+          response = await client
               .post(
                 Uri.parse(baseUrl + path),
                 headers: sendHeaders,

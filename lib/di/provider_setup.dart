@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -25,6 +26,7 @@ import '../presentation/imitating/imitating_view_model.dart';
 
 /// Get providers for view models
 Future<List<SingleChildWidget>> getProviders() async {
+  http.Client client = http.Client();
   Database database = await openDatabase(
     join(await getDatabasesPath(), 'smiler.db'),
     version: 1,
@@ -39,7 +41,7 @@ Future<List<SingleChildWidget>> getProviders() async {
   CameraDescription? camera = cameras.length > 1 ? cameras[1] : null;
 
   // Data Sources
-  Api api = Api();
+  Api api = Api(client);
 
   // Repositories
   ExpressionRepository expressionRepository = ExpressionRepositoryImpl(api);
@@ -60,9 +62,12 @@ Future<List<SingleChildWidget>> getProviders() async {
 
   // View Models
   MainViewModel mainViewModel = MainViewModel(camera != null);
-  ImitatingViewModel imitatingViewModel = ImitatingViewModel(camera);
-  WordViewModel wordViewModel = WordViewModel();
-  ExpressionViewModel expressionViewModel = ExpressionViewModel(camera);
+  ImitatingViewModel imitatingViewModel =
+      ImitatingViewModel(camera, getPhotoUseCase, scoreImitationUseCase);
+  WordViewModel wordViewModel =
+      WordViewModel(getWordQuestionUseCase, scoreWordQuestionUseCase);
+  ExpressionViewModel expressionViewModel =
+      ExpressionViewModel(camera, scoreExpressionUseCase);
 
   return [
     ChangeNotifierProvider(create: (_) => mainViewModel),

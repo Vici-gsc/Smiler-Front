@@ -21,7 +21,7 @@ class WordRepositoryImpl implements WordRepository {
         final wordQuestion = WordQuestion(
           imagePath: data["image"],
           emotionList: data["emotionList"]
-              .map<Emotion>((e) => Emotion.fromEnglishName(e))
+              .map<Emotion>(Emotion.fromEnglishName)
               .toList(),
           correctEmotion: Emotion.fromEnglishName(data["correctEmotion"]),
         );

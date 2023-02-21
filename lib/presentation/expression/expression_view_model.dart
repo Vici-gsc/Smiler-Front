@@ -2,12 +2,14 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../domain/model/emotion.dart';
+import '../../domain/usecase/score_expression_use_case.dart';
 import 'expression_state.dart';
 
 class ExpressionViewModel with ChangeNotifier {
   final CameraDescription? camera;
+  final ScoreExpressionUseCase _scoreUseCase;
 
-  ExpressionViewModel(this.camera);
+  ExpressionViewModel(this.camera, this._scoreUseCase);
 
   ExpressionState _state = ExpressionState(
     questionCount: -1,
@@ -30,7 +32,9 @@ class ExpressionViewModel with ChangeNotifier {
   void load({bool isInit = false}) {
     _state = _state.copyWith(
       questionCount: _state.questionCount + 1,
-      answerEmotion: Emotion.getRandomEmotion(except: _state.answerEmotion),
+      answerEmotion: Emotion.getRandomEmotion(
+        exceptions: _state.answerEmotion != null ? [_state.answerEmotion!] : [],
+      ),
       isLoading: false,
     );
 
@@ -40,26 +44,34 @@ class ExpressionViewModel with ChangeNotifier {
   }
 
   void checkAnswer(
-      String imagePath, Function() onCorrect, Function() onWrong) async {
+    String imagePath, {
+    Function(bool isCorrect)? onFinished,
+    Function(String error)? onError,
+  }) async {
     _state = _state.copyWith(
       isLoading: true,
     );
     notifyListeners();
 
-    // TODO: 이미지 분석 후 정답 여부 판단
-    await Future.delayed(const Duration(microseconds: 1000));
-    bool isCorrect = true;
-    // ==========
+    final result =
+        await _scoreUseCase.execute(_state.answerEmotion!, imagePath);
 
-    if (isCorrect) {
-      _state = _state.copyWith(
-        correctAnswerCount: _state.correctAnswerCount + 1,
-      );
-      onCorrect();
-    } else {
-      onWrong();
-    }
-
-    load();
+    result.when(
+      success: (scoringResult) {
+        if (scoringResult.isCorrect) {
+          _state = _state.copyWith(
+            correctAnswerCount: _state.correctAnswerCount + 1,
+          );
+        }
+        onFinished?.call(scoringResult.isCorrect);
+        load();
+      },
+      failure: (error) {
+        _state = _state.copyWith(
+          isLoading: false,
+        );
+        onError?.call(error);
+      },
+    );
   }
 }

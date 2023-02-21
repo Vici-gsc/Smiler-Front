@@ -4,22 +4,20 @@ import 'package:smiler/presentation/component/molecule/word_button.dart';
 import '../../../ui/service_colors.dart';
 
 class WordQuiz extends StatelessWidget {
-  final List<WordQuizItem> items;
-  final Function(String word)? onCorrect;
-  final Function(String word)? onWrong;
+  final List<String> words;
+  final Function(String word)? onSelected;
   final int maxRowItemCount;
 
   const WordQuiz({
     Key? key,
-    required this.items,
-    this.onCorrect,
-    this.onWrong,
+    required this.words,
+    this.onSelected,
     this.maxRowItemCount = 3,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final int rowCount = (items.length / maxRowItemCount).ceil();
+    final int rowCount = (words.length / maxRowItemCount).ceil();
     return Wrap(
       direction: Axis.vertical,
       crossAxisAlignment: WrapCrossAlignment.center,
@@ -30,29 +28,17 @@ class WordQuiz extends StatelessWidget {
             spacing: 20,
             children: [
               for (int j = 0; j < maxRowItemCount; j++)
-                if (i * maxRowItemCount + j < items.length)
+                if (i * maxRowItemCount + j < words.length)
                   WordButton(
-                    word: items[i * maxRowItemCount + j].word,
+                    word: words[i * maxRowItemCount + j],
                     color: ServiceColors.primaryLight,
-                    onTap: () {
-                      items[i * maxRowItemCount + j].isCorrect
-                          ? onCorrect?.call(items[i * maxRowItemCount + j].word)
-                          : onWrong?.call(items[i * maxRowItemCount + j].word);
-                    },
+                    onTap: () => onSelected?.call(
+                      words[i * maxRowItemCount + j],
+                    ),
                   ),
             ],
           ),
       ],
     );
   }
-}
-
-class WordQuizItem {
-  final String word;
-  final bool isCorrect;
-
-  const WordQuizItem({
-    required this.word,
-    this.isCorrect = false,
-  });
 }

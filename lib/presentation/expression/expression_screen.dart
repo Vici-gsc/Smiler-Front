@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:smiler/presentation/component/organism/camera_widget.dart';
 import 'package:smiler/presentation/expression/expression_view_model.dart';
 
+import '../component/molecule/alert_flush_bar.dart';
 import '../component/organism/scoring_popup.dart';
 import '../component/template/game_template.dart';
 
@@ -28,7 +29,7 @@ class _ExpressionScreenState extends State<ExpressionScreen> {
         child: Text(
           viewModel.state.answerEmotion?.koreanName ?? "",
           style:
-          Theme.of(context).textTheme.titleMedium!.apply(fontSizeDelta: 20),
+              Theme.of(context).textTheme.titleMedium!.apply(fontSizeDelta: 20),
         ),
       ),
       lowerChild: CameraWidget(
@@ -36,8 +37,9 @@ class _ExpressionScreenState extends State<ExpressionScreen> {
         onCaptured: (path) {
           viewModel.checkAnswer(
             path,
-            () => const ScoringPopup(isCorrect: true).show(context),
-            () => const ScoringPopup(isCorrect: false).show(context),
+            onFinished: (isCorrect) =>
+                ScoringPopup(isCorrect: isCorrect).show(context),
+            onError: (error) => AlertFlushBar(error).show(context),
           );
         },
       ),
