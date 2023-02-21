@@ -13,8 +13,6 @@ class WordRepositoryImpl implements WordRepository {
   WordRepositoryImpl(this._api);
 
   /// 단어 문제를 가져옵니다.
-  ///
-  /// [WordQuestion]은 [imagePath], [emotionList], [correctEmotion]을 가지고 있습니다.
   @override
   Future<Result<WordQuestion>> getWordQuestion() async {
     final result = await _api.get(

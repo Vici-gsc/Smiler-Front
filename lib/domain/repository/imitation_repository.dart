@@ -1,9 +1,19 @@
 import '../../data/source/model/result.dart';
+import '../../domain/model/emotion.dart';
 import '../model/scoring_result.dart';
 
+/// 표정 따라하기 문제와 관련된 데이터를 가져오는 Repository입니다.
 abstract class ImitationRepository {
+  /// [emotionName]에 해당하는 감정 이미지를 가져옵니다.
+  ///
+  /// [emotionName]은 미리 백엔드, 딥러닝 파트와 협의된 영단어를 사용합니다.
+  /// 자세한 내용은 [Emotion] 클래스를 참고하세요.
   Future<Result<String>> getEmotionImage(String emotionName);
 
+  /// [imagePath]에 해당하는 이미지가 [answerEmotionName]에 해당하는 감정과 일치하는지 확인합니다.
+  ///
+  /// [answerEmotionName]은 미리 백엔드, 딥러닝 파트와 협의된 영단어를 사용합니다.
+  /// 자세한 내용은 [Emotion] 클래스를 참고하세요.
   Future<Result<ScoringResult>> isCorrectImitation(
       String answerEmotionName, String imagePath);
 }
