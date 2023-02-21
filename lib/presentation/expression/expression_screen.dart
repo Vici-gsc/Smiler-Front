@@ -35,6 +35,7 @@ class _ExpressionScreenState extends State<ExpressionScreen> {
       lowerChild: CameraWidget(
         camera: viewModel.camera!,
         onCaptured: (path) {
+          // 이미지로 정답 확인
           viewModel.checkAnswer(
             path,
             onFinished: (isCorrect) =>
@@ -49,6 +50,8 @@ class _ExpressionScreenState extends State<ExpressionScreen> {
   @override
   void initState() {
     super.initState();
+
+    // 진행 상황 초기화
     context.read<ExpressionViewModel>().load(isInit: true);
   }
 }

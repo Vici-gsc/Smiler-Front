@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../ui/service_colors.dart';
 
+/// 텍스트가 있는 버튼입니다.
 class SmilerTextButton extends StatelessWidget {
   final String? text;
   final Function()? onTap;
@@ -13,6 +14,7 @@ class SmilerTextButton extends StatelessWidget {
   final double? width;
   final double? height;
 
+  /// 텍스트가 있는 버튼을 생성합니다. 모든 파라미터는 선택적입니다.
   const SmilerTextButton(
       {Key? key,
       this.text,

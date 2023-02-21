@@ -34,12 +34,15 @@ class _ImitatingScreenState extends State<ImitatingScreen> {
       ),
       lowerChild: CameraWidget(
         camera: viewModel.camera!,
-        onCaptured: (path) => viewModel.checkAnswer(
-          path,
-          onFinished: (isCorrect) =>
-              ScoringPopup(isCorrect: isCorrect).show(context),
-          onError: (error) => AlertFlushBar(error).show(context),
-        ),
+        onCaptured: (path) {
+          // 이미지로 정답 확인
+          viewModel.checkAnswer(
+            path,
+            onFinished: (isCorrect) =>
+                ScoringPopup(isCorrect: isCorrect).show(context),
+            onError: (error) => AlertFlushBar(error).show(context),
+          );
+        },
       ),
     );
   }
@@ -47,9 +50,12 @@ class _ImitatingScreenState extends State<ImitatingScreen> {
   @override
   void initState() {
     super.initState();
+
+    // 진행 상황 초기화
     context.read<ImitatingViewModel>().load(
         isInit: true,
         onError: (error) {
+          // 에러 발생 시 메인 화면으로 이동 및 에러 플러시바 출력
           final mainRoute = MaterialPageRoute(builder: (context) {
             SchedulerBinding.instance.addPostFrameCallback(
               (_) => AlertFlushBar(error).show(context),
@@ -57,6 +63,7 @@ class _ImitatingScreenState extends State<ImitatingScreen> {
             return const MainScreen();
           });
 
+          // 위젯이 바인딩된 이후에 메인 화면으로 이동
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => Navigator.of(context).pushAndRemoveUntil(
               mainRoute,

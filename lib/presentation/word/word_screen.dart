@@ -48,9 +48,12 @@ class _WordScreenState extends State<WordScreen> {
   @override
   void initState() {
     super.initState();
+
+    // 진행 상황 초기화
     context.read<WordViewModel>().load(
         isInit: true,
         onError: (error) {
+          // 에러 발생 시 메인 화면으로 이동 및 에러 플러시바 출력
           final mainRoute = MaterialPageRoute(builder: (context) {
             SchedulerBinding.instance.addPostFrameCallback(
               (_) => AlertFlushBar(error).show(context),
@@ -58,6 +61,7 @@ class _WordScreenState extends State<WordScreen> {
             return const MainScreen();
           });
 
+          // 위젯이 바인딩된 이후에 메인 화면으로 이동
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => Navigator.of(context).pushAndRemoveUntil(
               mainRoute,
