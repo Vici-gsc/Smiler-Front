@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:smiler/data/source/model/result.dart';
 import 'package:smiler/domain/model/scoring_result.dart';
 import 'package:smiler/domain/repository/imitation_repository.dart';
@@ -20,7 +17,7 @@ class ImitationRepositoryImpl implements ImitationRepository {
 
     return result.when(
       success: (data) {
-        final imageUrl = data["image"];
+        final imageUrl = data["photo_url"];
         return Result.success(imageUrl);
       },
       failure: (error) => Result.failure(error),
@@ -30,19 +27,9 @@ class ImitationRepositoryImpl implements ImitationRepository {
   @override
   Future<Result<ScoringResult>> isCorrectImitation(
       String answerEmotionName, String imagePath) async {
-    // Load image
-    File imageFile = File(imagePath);
-    List<int> imageBytes = imageFile.readAsBytesSync();
-    String base64Image = base64Encode(imageBytes);
-
-    // Send image
-    final result = await api.post(
+    final result = await api.postFile(
       "/imitation/face?feeling=$answerEmotionName",
-      body: jsonEncode(
-        [
-          {"image": base64Image}
-        ],
-      ),
+      imagePath,
     );
 
     return result.when(
