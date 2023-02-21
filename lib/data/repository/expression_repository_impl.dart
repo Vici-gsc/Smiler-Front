@@ -26,7 +26,10 @@ class ExpressionRepositoryImpl implements ExpressionRepository {
 
     return result.when(
       success: (data) {
-        final scoringResult = ScoringResult.fromJson(data);
+        final scoringResult = ScoringResult(
+          isCorrect: data["isCorrect"],
+          userAnswer: Emotion.fromEnglishName(data["userAnswer"]),
+        );
         return Result.success(scoringResult);
       },
       failure: (error) => Result.failure(error),

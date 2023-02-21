@@ -24,7 +24,7 @@ class ImitationRepositoryImpl implements ImitationRepository {
 
     return result.when(
       success: (data) {
-        final imageUrl = data["photo_url"];
+        final imageUrl = data["image"];
         return Result.success(imageUrl);
       },
       failure: (error) => Result.failure(error),
@@ -45,7 +45,10 @@ class ImitationRepositoryImpl implements ImitationRepository {
 
     return result.when(
       success: (data) {
-        final scoringResult = ScoringResult.fromJson(data);
+        final scoringResult = ScoringResult(
+          isCorrect: data["isCorrect"],
+          userAnswer: Emotion.fromEnglishName(data["userAnswer"]),
+        );
         return Result.success(scoringResult);
       },
       failure: (error) => Result.failure(error),
