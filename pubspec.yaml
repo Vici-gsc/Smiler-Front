@@ -48,6 +48,7 @@ dependencies:
   path_provider: ^2.0.12
   lottie: ^2.2.0
   permission_handler: ^10.2.0
+  another_flushbar: ^1.12.29
 
 dev_dependencies:
   flutter_test:

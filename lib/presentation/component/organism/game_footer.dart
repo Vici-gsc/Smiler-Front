@@ -21,7 +21,7 @@ class GameFooter extends StatelessWidget {
     return Container(
       height: 60,
       color: ServiceColors.primaryLight,
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

@@ -51,4 +51,15 @@ class ScoringPopup extends StatelessWidget {
       ),
     );
   }
+
+  void show(BuildContext context) {
+    Future.delayed(const Duration(milliseconds: 2000), () {
+      Navigator.of(context).pop();
+    });
+    showDialog(
+      context: context,
+      builder: (context) => this,
+      barrierDismissible: false,
+    );
+  }
 }

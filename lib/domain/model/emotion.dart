@@ -26,7 +26,15 @@ enum Emotion {
     return Emotion.values[index];
   }
 
-  static Emotion getRandomEmotion() {
-    return Emotion.values[Random().nextInt(Emotion.values.length)];
+  static Emotion getRandomEmotion({List<Emotion>? exceptions}) {
+    final targetEmotions = List.from(Emotion.values);
+
+    if (exceptions != null) {
+      for (final exception in exceptions) {
+        targetEmotions.remove(exception);
+      }
+    }
+
+    return targetEmotions[Random().nextInt(targetEmotions.length)];
   }
 }

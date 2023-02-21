@@ -5,10 +5,16 @@ import 'package:http/http.dart' as http;
 import 'model/result.dart';
 
 class Api {
-  static const timeLimit = Duration(seconds: 10);
-  static const baseUrl = "localhost";
+  static const Duration timeLimit = Duration(seconds: 10);
+  static const String baseUrl = "localhost";
+  static const String defaultErrorMessage =
+      "오류가 발생하였습니다.\n이 오류가 계속 발생하는 경우 개발자에게 문의해주세요.";
+  static const String networkErrorMessage =
+      "네트워크 연결이 원활하지 않습니다.\n잠시 후 다시 시도해주세요.";
 
-  Api();
+  final http.Client client;
+
+  Api(this.client);
 
   Future<Result<dynamic>> post(String path,
       {Map<String, String>? headers, Object? body}) async {
@@ -35,14 +41,13 @@ class Api {
     request.headers.addAll(headers ?? {});
     request.files.add(await http.MultipartFile.fromPath('file', uri));
 
-    final streamedResponse = await request.send();
+    final streamedResponse = await client.send(request);
     final response = await http.Response.fromStream(streamedResponse);
 
     if (response.statusCode ~/ 100 == 2) {
       return Result.success(jsonDecode(response.body));
     } else {
-      return Result.failure(
-          "${response.statusCode} Error: ${response.reasonPhrase}");
+      return Result.failure(defaultErrorMessage);
     }
   }
 
@@ -60,7 +65,7 @@ class Api {
 
       switch (method) {
         case HttpMethod.get:
-          response = await http
+          response = await client
               .get(
                 Uri.parse(baseUrl + path),
                 headers: sendHeaders,
@@ -68,7 +73,7 @@ class Api {
               .timeout(timeLimit);
           break;
         case HttpMethod.post:
-          response = await http
+          response = await client
               .post(
                 Uri.parse(baseUrl + path),
                 headers: sendHeaders,
@@ -77,15 +82,15 @@ class Api {
               .timeout(timeLimit);
       }
 
+      print(response);
       if (response.statusCode ~/ 100 == 2) {
         return Result.success(jsonDecode(response.body));
       } else {
-        return Result.failure(
-            "${response.statusCode} Error: ${response.reasonPhrase}");
+        return Result.failure(defaultErrorMessage);
       }
     } catch (e) {
       print(e);
-      return const Result.failure("Internal Error");
+      return const Result.failure(networkErrorMessage);
     }
   }
 }

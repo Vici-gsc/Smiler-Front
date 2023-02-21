@@ -19,8 +19,9 @@ class WordButton extends StatelessWidget {
       color: color,
       textStyle: Theme.of(context).textTheme.bodyMedium,
       width: 100,
+      height: 40,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-      borderRadius: BorderRadius.circular(100),
+      borderRadius: BorderRadius.circular(10),
     );
   }
 }
