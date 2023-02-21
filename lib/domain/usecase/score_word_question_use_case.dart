@@ -15,12 +15,14 @@ class ScoreWordQuestionUseCase {
   ScoreWordQuestionUseCase(this._historyRepository);
 
   /// UseCase를 실행합니다. [userChoice]가 [answer]와 일치하는지 확인합니다.
-  Future<Result<bool>> execute(Emotion answer, Emotion userChoice) async {
+  ///
+  /// [userChoice]가 null이면 오답 처리됩니다. (문제 스킵시 사용)
+  Future<Result<bool>> execute(Emotion answer, Emotion? userChoice) async {
     final isCorrect = answer == userChoice;
     _historyRepository.addHistory(
       questionType.index,
       answer.index,
-      userChoice.index,
+      userChoice?.index ?? Emotion.skip.index,
       isCorrect,
     );
     return Result.success(isCorrect);

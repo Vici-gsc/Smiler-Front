@@ -21,9 +21,17 @@ class _ImitatingScreenState extends State<ImitatingScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<ImitatingViewModel>();
+
+    void checkAnswer(String? imagePath) => viewModel.checkAnswer(
+          imagePath,
+          onFinished: (isCorrect) =>
+              ScoringPopup(isCorrect: isCorrect).show(context),
+          onError: (error) => AlertFlushBar(error).show(context),
+        );
+
     return GameTemplate(
       headerString: "표정을 따라해 보아요!",
-      onSkip: () => viewModel.load(),
+      onSkip: () => checkAnswer(null),
       onExit: () => viewModel.exit(),
       currentQuestionCount: viewModel.state.questionCount,
       correctAnswerCount: viewModel.state.correctAnswerCount,
@@ -34,15 +42,7 @@ class _ImitatingScreenState extends State<ImitatingScreen> {
       ),
       lowerChild: CameraWidget(
         camera: viewModel.camera!,
-        onCaptured: (path) {
-          // 이미지로 정답 확인
-          viewModel.checkAnswer(
-            path,
-            onFinished: (isCorrect) =>
-                ScoringPopup(isCorrect: isCorrect).show(context),
-            onError: (error) => AlertFlushBar(error).show(context),
-          );
-        },
+        onCaptured: (path) => checkAnswer(path),
       ),
     );
   }

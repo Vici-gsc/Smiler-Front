@@ -16,15 +16,16 @@ class ImitatingViewModel with ChangeNotifier {
   ImitatingViewModel(this.camera, this._getPhotoUseCase, this._scoreUseCase);
 
   ImitatingState _state = ImitatingState(
-    questionCount: -1,
     // 맞거나 틀리거나 스킵한 문제의 수
-    correctAnswerCount: 0,
+    questionCount: -1,
     // 맞춘 문제의 수
-    answerEmotion: null,
+    correctAnswerCount: 0,
     // 정답 감정
-    imageUrl: null,
+    answerEmotion: null,
     // 현재 이미지 URL
-    isLoading: true, // 로딩 중인지 여부
+    imageUrl: null,
+    // 로딩 중인지 여부
+    isLoading: true,
   );
 
   ImitatingState get state => _state;
@@ -81,7 +82,7 @@ class ImitatingViewModel with ChangeNotifier {
   }
 
   void checkAnswer(
-    String imagePath, {
+    String? imagePath, {
     Function(bool isCorrect)? onFinished,
     Function(String error)? onError,
   }) async {

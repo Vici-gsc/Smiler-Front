@@ -11,7 +11,7 @@ class Api {
 
   /// 기본 오류 메시지.
   static const String defaultErrorMessage =
-      "오류가 발생하였습니다.\n이 오류가 계속 발생하는 경우 개발자에게 문의해주세요.";
+      "오류가 발생하였습니다.\n오류가 계속 발생하는 경우 개발자에게 문의해주세요.";
 
   /// 네트워크 오류 메시지.
   static const String networkErrorMessage =

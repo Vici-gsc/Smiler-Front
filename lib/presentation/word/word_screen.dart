@@ -22,9 +22,16 @@ class _WordScreenState extends State<WordScreen> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<WordViewModel>();
 
+    void checkAnswer(String? word) => viewModel.checkAnswer(
+          word,
+          onFinished: (isCorrect) =>
+              ScoringPopup(isCorrect: isCorrect).show(context),
+          onError: (error) => AlertFlushBar(error).show(context),
+        );
+
     return GameTemplate(
       headerString: "감정을 맞춰 보아요!",
-      onSkip: () => viewModel.load(),
+      onSkip: () => checkAnswer(null),
       onExit: () => viewModel.exit(),
       currentQuestionCount: viewModel.state.questionCount,
       correctAnswerCount: viewModel.state.correctAnswerCount,
@@ -32,14 +39,10 @@ class _WordScreenState extends State<WordScreen> {
       upperChild: EmotionImage(url: viewModel.state.imageUrl),
       lowerChild: Center(
         child: WordQuiz(
-          words: List.from(viewModel.state.emotionChoices
-              .map((emotion) => emotion.koreanName)),
-          onSelected: (word) => viewModel.checkAnswer(
-            word,
-            onFinished: (isCorrect) =>
-                ScoringPopup(isCorrect: isCorrect).show(context),
-            onError: (error) => AlertFlushBar(error).show(context),
+          words: List.from(
+            viewModel.state.emotionChoices.map((emotion) => emotion.koreanName),
           ),
+          onSelected: (word) => checkAnswer(word),
         ),
       ),
     );

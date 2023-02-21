@@ -15,17 +15,18 @@ class WordViewModel with ChangeNotifier {
   WordViewModel(this._getQuestionUseCase, this._scoreUseCase);
 
   WordState _state = WordState(
-    questionCount: 0,
     // 맞거나 틀리거나 스킵한 문제의 수
-    correctAnswerCount: 0,
+    questionCount: 0,
     // 맞춘 문제의 수
-    answerEmotion: null,
+    correctAnswerCount: 0,
     // 정답 감정
-    emotionChoices: [],
+    answerEmotion: null,
     // 감정 선택지
-    imageUrl: null,
+    emotionChoices: [],
     // 현재 이미지 URL
-    isLoading: true, // 로딩 중인지 여부
+    imageUrl: null,
+    // 로딩 중인지 여부
+    isLoading: true,
   );
 
   WordState get state => _state;
@@ -78,7 +79,7 @@ class WordViewModel with ChangeNotifier {
   }
 
   void checkAnswer(
-    String selectedWord, {
+    String? selectedWord, {
     Function(bool isCorrect)? onFinished,
     Function(String error)? onError,
   }) async {
@@ -91,7 +92,7 @@ class WordViewModel with ChangeNotifier {
     // 결과 불러오기
     final result = await _scoreUseCase.execute(
       _state.answerEmotion!,
-      Emotion.fromKoreanName(selectedWord),
+      selectedWord != null ? Emotion.fromKoreanName(selectedWord) : null,
     );
 
     result.when(

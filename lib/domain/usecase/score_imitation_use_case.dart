@@ -18,10 +18,22 @@ class ScoreImitationUseCase {
   ScoreImitationUseCase(this._imitationRepository, this._historyRepository);
 
   /// UseCase를 실행합니다. [imagePath]의 사진이 [answer]의 감정과 일치하는지 확인합니다.
+  ///
+  /// [imagePath]가 null이면 오답 처리됩니다. (문제 스킵시 사용)
   Future<Result<ScoringResult>> execute(
-      Emotion answer, String imagePath) async {
-    final apiResult = await _imitationRepository.isCorrectImitation(
-        answer.englishName, imagePath);
+      Emotion answer, String? imagePath) async {
+    final Result<ScoringResult> apiResult;
+
+    if (imagePath == null) {
+      apiResult = Result.success(
+        ScoringResult(isCorrect: false, userAnswer: Emotion.skip),
+      );
+    } else {
+      apiResult = await _imitationRepository.isCorrectImitation(
+        answer.englishName,
+        imagePath,
+      );
+    }
 
     return apiResult.when(
       success: (scoringResult) {

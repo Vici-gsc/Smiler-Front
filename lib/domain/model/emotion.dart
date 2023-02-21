@@ -8,7 +8,8 @@ enum Emotion {
   angry("angry", "분노"),
   fear("fear", "불안"),
   hurt("hurt", "상처"),
-  sad("sad", "슬픔");
+  sad("sad", "슬픔"),
+  skip("skip", "스킵");
 
   /// 감정의 영어 이름입니다.
   final String englishName;

@@ -14,10 +14,14 @@ class ExpressionViewModel with ChangeNotifier {
   ExpressionViewModel(this.camera, this._scoreUseCase);
 
   ExpressionState _state = ExpressionState(
-    questionCount: -1, // 맞거나 틀리거나 스킵한 문제의 수
-    correctAnswerCount: 0, // 맞춘 문제의 수
-    answerEmotion: null, // 정답 감정
-    isLoading: true, // 로딩 중인지 여부
+    // 맞거나 틀리거나 스킵한 문제의 수
+    questionCount: -1,
+    // 맞춘 문제의 수
+    correctAnswerCount: 0,
+    // 정답 감정
+    answerEmotion: null,
+    // 로딩 중인지 여부
+    isLoading: true,
   );
 
   ExpressionState get state => _state;
@@ -46,7 +50,7 @@ class ExpressionViewModel with ChangeNotifier {
   }
 
   void checkAnswer(
-    String imagePath, {
+    String? imagePath, {
     Function(bool isCorrect)? onFinished,
     Function(String error)? onError,
   }) async {
@@ -57,8 +61,10 @@ class ExpressionViewModel with ChangeNotifier {
     notifyListeners();
 
     // 결과 불러오기
-    final result =
-        await _scoreUseCase.execute(_state.answerEmotion!, imagePath);
+    final result = await _scoreUseCase.execute(
+      _state.answerEmotion!,
+      imagePath,
+    );
 
     result.when(
       success: (scoringResult) {
