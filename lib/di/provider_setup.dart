@@ -1,5 +1,4 @@
 import 'package:camera/camera.dart';
-import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -26,8 +25,6 @@ import '../presentation/imitating/imitating_view_model.dart';
 
 /// Get providers for view models
 Future<List<SingleChildWidget>> getProviders() async {
-  // 1. Independent Models
-  http.Client client = http.Client();
   Database database = await openDatabase(
     join(await getDatabasesPath(), 'smiler.db'),
     version: 1,
@@ -41,16 +38,16 @@ Future<List<SingleChildWidget>> getProviders() async {
   List<CameraDescription> cameras = await availableCameras();
   CameraDescription? camera = cameras.length > 1 ? cameras[1] : null;
 
-  // 2. Data Sources
-  Api api = Api(client);
+  // Data Sources
+  Api api = Api();
 
-  // 3. Repositories
+  // Repositories
   ExpressionRepository expressionRepository = ExpressionRepositoryImpl(api);
   WordRepository wordRepository = WordRepositoryImpl(api);
   ImitationRepository imitationRepository = ImitationRepositoryImpl(api);
   HistoryRepository historyRepository = HistoryRepositoryImpl(database);
 
-  // 4. Use Cases
+  // Use Cases
   GetPhotoUseCase getPhotoUseCase = GetPhotoUseCase(imitationRepository);
   GetWordQuestionUseCase getWordQuestionUseCase =
       GetWordQuestionUseCase(wordRepository);
@@ -61,7 +58,7 @@ Future<List<SingleChildWidget>> getProviders() async {
   ScoreWordQuestionUseCase scoreWordQuestionUseCase =
       ScoreWordQuestionUseCase(historyRepository);
 
-  // 5. View Models
+  // View Models
   MainViewModel mainViewModel = MainViewModel(camera != null);
   ImitatingViewModel imitatingViewModel = ImitatingViewModel(camera);
   WordViewModel wordViewModel = WordViewModel();

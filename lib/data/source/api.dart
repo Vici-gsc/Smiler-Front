@@ -7,13 +7,8 @@ import 'model/result.dart';
 class Api {
   static const timeLimit = Duration(seconds: 10);
   static const baseUrl = "localhost";
-  static const Map<String, String> defaultHeaders = {
-    "Content-Type": "application/json; charset=UTF-8",
-  };
 
-  final http.Client client;
-
-  Api(this.client);
+  Api();
 
   Future<Result<dynamic>> post(String path,
       {Map<String, String>? headers, Object? body}) async {
@@ -34,6 +29,23 @@ class Api {
     );
   }
 
+  Future<Result<dynamic>> postFile(String path, String uri,
+      {Map<String, String>? headers}) async {
+    final request = http.MultipartRequest('POST', Uri.parse(baseUrl + path));
+    request.headers.addAll(headers ?? {});
+    request.files.add(await http.MultipartFile.fromPath('file', uri));
+
+    final streamedResponse = await request.send();
+    final response = await http.Response.fromStream(streamedResponse);
+
+    if (response.statusCode ~/ 100 == 2) {
+      return Result.success(jsonDecode(response.body));
+    } else {
+      return Result.failure(
+          "${response.statusCode} Error: ${response.reasonPhrase}");
+    }
+  }
+
   Future<Result<dynamic>> request(
     HttpMethod method,
     String path, {
@@ -41,14 +53,14 @@ class Api {
     Object? body,
   }) async {
     print("$method $path");
-    final sendHeaders = {...defaultHeaders, ...?headers};
+    final sendHeaders = {...?headers};
 
     try {
       final http.Response response;
 
       switch (method) {
         case HttpMethod.get:
-          response = await client
+          response = await http
               .get(
                 Uri.parse(baseUrl + path),
                 headers: sendHeaders,
@@ -56,7 +68,7 @@ class Api {
               .timeout(timeLimit);
           break;
         case HttpMethod.post:
-          response = await client
+          response = await http
               .post(
                 Uri.parse(baseUrl + path),
                 headers: sendHeaders,
