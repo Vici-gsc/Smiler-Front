@@ -6,17 +6,23 @@ import '../../domain/model/emotion.dart';
 import '../../domain/model/question_type.dart';
 import '../source/model/result.dart';
 
+/// [HistoryRepository]의 구현체입니다.
 class HistoryRepositoryImpl implements HistoryRepository {
   static const String _tableName = 'history';
-  final Database database;
+  final Database _database;
 
-  HistoryRepositoryImpl(this.database);
+  /// [HistoryRepositoryImpl] 클래스를 생성합니다.
+  HistoryRepositoryImpl(this._database);
 
+  ///  [questionTypeId] Type을 가지는 문제에 대한 풀이 이력을 저장합니다.
+  ///
+  /// 문제의 정답 [correctAnswerId]과 사용자가 선택한 답 [userAnswerId]를 저장합니다.
+  /// 또한 [isCorrect]가 true이면 정답으로 저장하고, false이면 오답으로 저장합니다.
   @override
   Future<Result<void>> addHistory(int questionTypeId, int correctAnswerId,
       int userAnswerId, bool isCorrect) async {
     try {
-      await database.insert(
+      await _database.insert(
         _tableName,
         {
           "questionType": questionTypeId,
@@ -31,20 +37,22 @@ class HistoryRepositoryImpl implements HistoryRepository {
     }
   }
 
+  /// 모든 풀이 이력을 삭제합니다.
   @override
   Future<Result<void>> deleteAllHistories() async {
     try {
-      await database.delete(_tableName);
+      await _database.delete(_tableName);
       return const Result.success(null);
     } catch (e) {
       return const Result.failure("기록을 삭제하는데 실패하였습니다.");
     }
   }
 
+  /// 모든 풀이 이력을 가져옵니다.
   @override
   Future<Result<List<History>>> getHistories() async {
     try {
-      final result = await database.query(_tableName);
+      final result = await _database.query(_tableName);
       final histories = result.map(_toHistory).toList();
       return Result.success(histories);
     } catch (e) {

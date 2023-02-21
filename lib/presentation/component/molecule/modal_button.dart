@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../atom/smiler_text_button.dart';
 
+/// 모달에서 사용되는 버튼입니다.
 class ModalButton extends StatelessWidget {
   final String text;
   final Color color;
   final Function() onTap;
 
+  /// 모달에서 사용되는 버튼을 생성합니다.
   const ModalButton({
     Key? key,
     required this.text,

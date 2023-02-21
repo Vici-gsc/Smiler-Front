@@ -5,22 +5,44 @@ import 'package:smiler/presentation/component/organism/yes_no_dialog.dart';
 
 import '../../../ui/service_colors.dart';
 
+/// 게임 화면의 템플릿 위젯입니다.
 class GameTemplate extends StatelessWidget {
+  /// 헤더에 표시할 문자열입니다.
   final String headerString;
+
+  /// 위쪽에 표시할 위젯입니다.
   final Widget? upperChild;
+
+  /// 아래쪽에 표시할 위젯입니다.
   final Widget? lowerChild;
-  final Function() onSkip;
+
+  /// 스킵 버튼을 눌렀을 때 호출되는 콜백입니다.
+  final Function()? onSkip;
+
+  /// 종료 버튼을 눌렀을 때 호출되는 콜백입니다.
   final Function()? onExit;
+
+  /// 현재 진행 중인 문제의 개수입니다.
   final int currentQuestionCount;
+
+  /// 현재까지 맞춘 문제의 개수입니다.
   final int correctAnswerCount;
+
+  /// 로딩 중인지 여부입니다.
   final bool isLoading;
 
+  /// 게임 화면의 템플릿 위젯을 생성합니다.
+  ///
+  /// [GameTemplate]는 템플릿이므로, [Scaffold]를 포함하고 있는 점을 확인해주세요.
+  /// [upperChild]와 [lowerChild]는 null인 경우 빈 화면을 보여줍니다.
+  /// [onSkip]과 [onExit]은 각각의 팝업에서 확인을 눌렀을 때에만 호출됩니다.
+  /// [isLoading]이 true일 경우 화면에 로딩 화면이 덮입니다.
   const GameTemplate(
       {Key? key,
       required this.headerString,
       this.upperChild,
       this.lowerChild,
-      required this.onSkip,
+      this.onSkip,
       this.onExit,
       required this.currentQuestionCount,
       required this.correctAnswerCount,
@@ -87,6 +109,7 @@ class GameTemplate extends StatelessWidget {
     );
   }
 
+  /// 종료 팝업을 띄웁니다.
   void _showExitDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -106,6 +129,7 @@ class GameTemplate extends StatelessWidget {
     );
   }
 
+  /// 스킵 팝업을 띄웁니다.
   void _showSkipDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -117,7 +141,7 @@ class GameTemplate extends StatelessWidget {
           onPositiveButtonTap: () {
             Navigator.of(dialogContext).pop();
             AlertFlushBar("문제가 스킵되었습니다.").show(context);
-            onSkip();
+            onSkip?.call();
           },
           onNegativeButtonTap: () {
             AlertFlushBar("연습을 종료하였습니다.").show(context);

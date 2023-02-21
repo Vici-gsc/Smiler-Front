@@ -4,9 +4,11 @@ import 'package:smiler/ui/service_assets.dart';
 
 import '../../../ui/service_colors.dart';
 
+/// 카메라 아이콘이 있는 버튼 위젯입니다.
 class CameraButton extends StatelessWidget {
   final Function() onTap;
 
+  /// 카메라 아이콘이 있는 버튼 위젯을 생성합니다.
   const CameraButton({Key? key, required this.onTap}) : super(key: key);
 
   @override

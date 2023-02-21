@@ -18,13 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$WordState {
   int get questionCount => throw _privateConstructorUsedError;
   int get correctAnswerCount => throw _privateConstructorUsedError;
-
   Emotion? get answerEmotion => throw _privateConstructorUsedError;
-
   List<Emotion> get emotionChoices => throw _privateConstructorUsedError;
-
   String? get imageUrl => throw _privateConstructorUsedError;
-
   bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -177,7 +173,6 @@ class _$_WordState implements _WordState {
   @override
   final Emotion? answerEmotion;
   final List<Emotion> _emotionChoices;
-
   @override
   List<Emotion> get emotionChoices {
     if (_emotionChoices is EqualUnmodifiableListView) return _emotionChoices;
@@ -242,22 +237,16 @@ abstract class _WordState implements WordState {
 
   @override
   int get questionCount;
-
   @override
   int get correctAnswerCount;
-
   @override
   Emotion? get answerEmotion;
-
   @override
   List<Emotion> get emotionChoices;
-
   @override
   String? get imageUrl;
-
   @override
   bool get isLoading;
-
   @override
   @JsonKey(ignore: true)
   _$$_WordStateCopyWith<_$_WordState> get copyWith =>

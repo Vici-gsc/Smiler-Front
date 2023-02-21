@@ -4,17 +4,24 @@ import 'package:smiler/ui/service_assets.dart';
 
 import '../../../ui/service_colors.dart';
 
+/// 게임 화면 하단에 위치하는 푸터 위젯입니다.
 class GameFooter extends StatelessWidget {
+  /// 게임을 종료하는 버튼을 눌렀을 때 호출되는 콜백입니다.
   final Function() onExitButtonTapped;
+
+  /// 문제를 건너뛰는 버튼을 눌렀을 때 호출되는 콜백입니다.
   final Function() onSkipButtonTapped;
+
+  /// 현재까지 진행한 문제의 수입니다.
   final int currentQuestionCount;
 
-  const GameFooter(
-      {Key? key,
-      required this.onExitButtonTapped,
-      required this.onSkipButtonTapped,
-      required this.currentQuestionCount})
-      : super(key: key);
+  /// 게임 화면 하단에 위치하는 푸터 위젯을 생성합니다.
+  const GameFooter({
+    Key? key,
+    required this.onExitButtonTapped,
+    required this.onSkipButtonTapped,
+    required this.currentQuestionCount,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

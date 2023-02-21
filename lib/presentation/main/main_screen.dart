@@ -64,10 +64,12 @@ class _MainScreenState extends State<MainScreen> {
     _checkConnectivity();
   }
 
+  /// 인터넷 연결을 확인하는 함수
   void _checkConnectivity() async {
     final connectivityResult = await (Connectivity().checkConnectivity());
 
     if (connectivityResult == ConnectivityResult.none) {
+      // 인터넷 연결이 없을 경우 위젯이 바인딩 된 후 다이얼로그 표시
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => showDialog(
           context: context,

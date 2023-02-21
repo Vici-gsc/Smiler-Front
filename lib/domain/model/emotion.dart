@@ -1,5 +1,6 @@
 import 'dart:math';
 
+/// 퀴즈에 사용되는 감정입니다.
 enum Emotion {
   natural("natural", "중립"),
   happy("happy", "행복"),
@@ -7,25 +8,33 @@ enum Emotion {
   angry("angry", "분노"),
   fear("fear", "불안"),
   hurt("hurt", "상처"),
-  sad("sad", "슬픔");
+  sad("sad", "슬픔"),
+  skip("skip", "스킵");
 
+  /// 감정의 영어 이름입니다.
   final String englishName;
+
+  /// 감정의 한국어 이름입니다.
   final String koreanName;
 
   const Emotion(this.englishName, this.koreanName);
 
+  /// 감정의 영어 이름을 기반으로 감정을 반환합니다.
   static Emotion fromEnglishName(String englishName) {
     return Emotion.values.firstWhere((e) => e.englishName == englishName);
   }
 
+  /// 감정의 한국어 이름을 기반으로 감정을 반환합니다.
   static Emotion fromKoreanName(String koreanName) {
     return Emotion.values.firstWhere((e) => e.englishName == koreanName);
   }
 
+  /// 감정의 인덱스를 기반으로 감정을 반환합니다.
   static Emotion fromIndex(int index) {
     return Emotion.values[index];
   }
 
+  /// 랜덤으로 감정을 반환합니다. [exceptions]에 포함된 감정은 제외됩니다.
   static Emotion getRandomEmotion({List<Emotion>? exceptions}) {
     final targetEmotions = List.from(Emotion.values);
 

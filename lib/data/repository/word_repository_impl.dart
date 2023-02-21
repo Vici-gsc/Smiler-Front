@@ -5,14 +5,17 @@ import 'package:smiler/domain/repository/word_repository.dart';
 import '../../domain/model/emotion.dart';
 import '../source/api.dart';
 
+/// [WordRepository]의 구현체
 class WordRepositoryImpl implements WordRepository {
-  final Api api;
+  final Api _api;
 
-  WordRepositoryImpl(this.api);
+  /// [WordRepositoryImpl] 클래스를 생성합니다.
+  WordRepositoryImpl(this._api);
 
+  /// 단어 문제를 가져옵니다.
   @override
   Future<Result<WordQuestion>> getWordQuestion() async {
-    final result = await api.get(
+    final result = await _api.get(
       "/word",
     );
 

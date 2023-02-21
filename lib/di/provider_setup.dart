@@ -24,8 +24,9 @@ import '../data/source/api.dart';
 import '../domain/usecase/score_imitation_use_case.dart';
 import '../presentation/imitating/imitating_view_model.dart';
 
-/// Get providers for view models
+/// 앱 전체에서 사용하는 Provider를 생성합니다. (의존성 주입)
 Future<List<SingleChildWidget>> getProviders() async {
+  // Independent Classes
   http.Client client = http.Client();
   Database database = await openDatabase(
     join(await getDatabasesPath(), 'smiler.db'),

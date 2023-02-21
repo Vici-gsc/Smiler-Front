@@ -17,13 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ImitatingState {
   int get questionCount => throw _privateConstructorUsedError;
-
   int get correctAnswerCount => throw _privateConstructorUsedError;
-
   Emotion? get answerEmotion => throw _privateConstructorUsedError;
-
   String? get imageUrl => throw _privateConstructorUsedError;
-
   bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -211,19 +207,14 @@ abstract class _ImitatingState implements ImitatingState {
 
   @override
   int get questionCount;
-
   @override
   int get correctAnswerCount;
-
   @override
   Emotion? get answerEmotion;
-
   @override
   String? get imageUrl;
-
   @override
   bool get isLoading;
-
   @override
   @JsonKey(ignore: true)
   _$$_ImitatingStateCopyWith<_$_ImitatingState> get copyWith =>

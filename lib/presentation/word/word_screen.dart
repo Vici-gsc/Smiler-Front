@@ -22,9 +22,16 @@ class _WordScreenState extends State<WordScreen> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<WordViewModel>();
 
+    void checkAnswer(String? word) => viewModel.checkAnswer(
+          word,
+          onFinished: (isCorrect) =>
+              ScoringPopup(isCorrect: isCorrect).show(context),
+          onError: (error) => AlertFlushBar(error).show(context),
+        );
+
     return GameTemplate(
       headerString: "감정을 맞춰 보아요!",
-      onSkip: () => viewModel.load(),
+      onSkip: () => checkAnswer(null),
       onExit: () => viewModel.exit(),
       currentQuestionCount: viewModel.state.questionCount,
       correctAnswerCount: viewModel.state.correctAnswerCount,
@@ -32,14 +39,10 @@ class _WordScreenState extends State<WordScreen> {
       upperChild: EmotionImage(url: viewModel.state.imageUrl),
       lowerChild: Center(
         child: WordQuiz(
-          words: List.from(viewModel.state.emotionChoices
-              .map((emotion) => emotion.koreanName)),
-          onSelected: (word) => viewModel.checkAnswer(
-            word,
-            onFinished: (isCorrect) =>
-                ScoringPopup(isCorrect: isCorrect).show(context),
-            onError: (error) => AlertFlushBar(error).show(context),
+          words: List.from(
+            viewModel.state.emotionChoices.map((emotion) => emotion.koreanName),
           ),
+          onSelected: (word) => checkAnswer(word),
         ),
       ),
     );
@@ -48,9 +51,12 @@ class _WordScreenState extends State<WordScreen> {
   @override
   void initState() {
     super.initState();
+
+    // 진행 상황 초기화
     context.read<WordViewModel>().load(
         isInit: true,
         onError: (error) {
+          // 에러 발생 시 메인 화면으로 이동 및 에러 플러시바 출력
           final mainRoute = MaterialPageRoute(builder: (context) {
             SchedulerBinding.instance.addPostFrameCallback(
               (_) => AlertFlushBar(error).show(context),
@@ -58,6 +64,7 @@ class _WordScreenState extends State<WordScreen> {
             return const MainScreen();
           });
 
+          // 위젯이 바인딩된 이후에 메인 화면으로 이동
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => Navigator.of(context).pushAndRemoveUntil(
               mainRoute,
