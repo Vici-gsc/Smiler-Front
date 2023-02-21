@@ -58,10 +58,11 @@ class _ImitatingScreenState extends State<ImitatingScreen> {
           });
 
           WidgetsBinding.instance.addPostFrameCallback(
-              (_) => Navigator.of(context).pushAndRemoveUntil(
-                    mainRoute,
-                    (route) => false,
-                  ));
+            (_) => Navigator.of(context).pushAndRemoveUntil(
+              mainRoute,
+              (route) => false,
+            ),
+          );
         });
   }
 }

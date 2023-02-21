@@ -1,13 +1,20 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smiler/presentation/main/main_view_model.dart';
 
 import '../../ui/service_colors.dart';
 import '../component/organism/main_menu_list.dart';
+import '../component/organism/yes_no_dialog.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainViewModel>();
@@ -49,5 +56,30 @@ class MainScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checkConnectivity();
+  }
+
+  void _checkConnectivity() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+
+    if (connectivityResult == ConnectivityResult.none) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => showDialog(
+          context: context,
+          builder: (dialogContext) => YesNoDialog(
+              title: "Smiler을 이용하려면 인터넷 연결이 필요해요.",
+              description: "WIFI나 5G, LTE를 켜주세요.",
+              negativeButtonLabel: "닫기",
+              onNegativeButtonTap: () {
+                Navigator.of(dialogContext).pop();
+              }),
+        ),
+      );
+    }
   }
 }

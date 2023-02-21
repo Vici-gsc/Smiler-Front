@@ -7,18 +7,18 @@ import '../atom/round_dialog.dart';
 class YesNoDialog extends StatelessWidget {
   final String title;
   final String description;
-  final String positiveButtonLabel;
+  final String? positiveButtonLabel;
   final String negativeButtonLabel;
-  final Function() onPositiveButtonTap;
+  final Function()? onPositiveButtonTap;
   final Function() onNegativeButtonTap;
 
   const YesNoDialog(
       {Key? key,
       required this.title,
       required this.description,
-      required this.positiveButtonLabel,
+      this.positiveButtonLabel,
       required this.negativeButtonLabel,
-      required this.onPositiveButtonTap,
+      this.onPositiveButtonTap,
       required this.onNegativeButtonTap})
       : super(key: key);
 
@@ -45,14 +45,15 @@ class YesNoDialog extends StatelessWidget {
           IntrinsicWidth(
             child: Row(
               children: [
-                Expanded(
-                  child: ModalButton(
-                    text: positiveButtonLabel,
-                    color: ServiceColors.cautionRed,
-                    onTap: onPositiveButtonTap,
+                if (positiveButtonLabel != null)
+                  Expanded(
+                    child: ModalButton(
+                      text: positiveButtonLabel!,
+                      color: ServiceColors.cautionRed,
+                      onTap: () => onPositiveButtonTap?.call(),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 5),
+                if (positiveButtonLabel != null) const SizedBox(width: 5),
                 Expanded(
                   child: ModalButton(
                     text: negativeButtonLabel,
