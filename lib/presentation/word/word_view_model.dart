@@ -47,16 +47,11 @@ class WordViewModel with ChangeNotifier {
 
     result.when(
       success: (question) {
-        List<Emotion> choices = [question.correctEmotion];
-        for (int i = 0; i < choiceCount - 1; i++) {
-          choices.add(Emotion.getRandomEmotion(exceptions: choices));
-        }
-
         _state = _state.copyWith(
           questionCount: _state.questionCount + 1,
           answerEmotion: question.correctEmotion,
-          emotionChoices: choices,
-          imageUrl: 'https://dummyimage.com/600x400/000/fff&text=Dummy+Image',
+          emotionChoices: question.emotionList,
+          imageUrl: question.imagePath,
           isLoading: false,
         );
         notifyListeners();
