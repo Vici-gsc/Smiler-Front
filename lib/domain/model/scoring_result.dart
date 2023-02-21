@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'emotion.dart';
 
 part 'scoring_result.freezed.dart';
-part 'scoring_result.g.dart';
 
 /// 채점 결과입니다.
 @freezed
@@ -13,7 +12,4 @@ class ScoringResult with _$ScoringResult {
     required bool isCorrect,
     required Emotion userAnswer,
   }) = _ScoringResult;
-
-  factory ScoringResult.fromJson(Map<String, dynamic> json) =>
-      _$ScoringResultFromJson(json);
 }
