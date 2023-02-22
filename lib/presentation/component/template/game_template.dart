@@ -137,14 +137,13 @@ class GameTemplate extends StatelessWidget {
           title: "정말로 이 문제를 스킵할까요?",
           description: "스킵한 문제는 다시 풀 수 없어요.",
           positiveButtonLabel: "스킵하기",
-          negativeButtonLabel: "마저풀기",
+          negativeButtonLabel: "계속하기",
           onPositiveButtonTap: () {
             Navigator.of(dialogContext).pop();
             AlertFlushBar("문제가 스킵되었습니다.").show(context);
             onSkip?.call();
           },
           onNegativeButtonTap: () {
-            AlertFlushBar("연습을 종료하였습니다.").show(context);
             Navigator.of(dialogContext).pop();
           }),
     );
