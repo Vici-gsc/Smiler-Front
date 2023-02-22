@@ -59,7 +59,6 @@ class MockImitationRepositoryImpl extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.Result<String>>);
-
   @override
   _i4.Future<_i2.Result<_i5.ScoringResult>> isCorrectImitation(
     String? answerEmotionName,

@@ -5,4 +5,5 @@ class ServiceAssets {
   static const String photoIcon = "asset/icon/photo.svg";
   static const String skipIcon = "asset/icon/skip.svg";
   static const String staticsIcon = "asset/icon/statics.svg";
+  static const String trashIcon = "asset/icon/trash.svg";
 }

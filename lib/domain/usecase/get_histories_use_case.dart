@@ -10,7 +10,15 @@ class GetHistoriesUseCase {
   GetHistoriesUseCase(this._historyRepository);
 
   /// UseCase를 실행합니다. 모든 History를 불러옵니다.
-  Future<Result<List<History>>> execute() async {
-    return await _historyRepository.getHistories();
+  Future<Result<List<History>>> execute(int limit) async {
+    final result = await _historyRepository.getHistories(limit: limit);
+
+    return result.when(
+      success: (data) {
+        final histories = data;
+        return Result.success(histories);
+      },
+      failure: (error) => Result.failure(error),
+    );
   }
 }
