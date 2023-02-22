@@ -51,41 +51,34 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
     return Scaffold(
       backgroundColor: ServiceColors.background,
       body: SafeArea(
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                Expanded(child: _StatDataWidget(state: viewModel.state)),
-                Container(
-                  height: 60,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  color: ServiceColors.primaryLight,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SvgIconButton(
-                        svgPath: ServiceAssets.exitIcon,
-                        color: Colors.red,
-                        onTap: () => Navigator.of(context).pop(),
-                        label: "나가기",
-                      ),
-                      SvgIconButton(
-                        svgPath: ServiceAssets.trashIcon,
-                        onTap: () => showDeleteDialog(),
-                        label: "삭제하기",
-                      ),
-                    ],
+        child: viewModel.state.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Column(
+                children: [
+                  Expanded(child: _StatDataWidget(state: viewModel.state)),
+                  Container(
+                    height: 60,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    color: ServiceColors.primaryLight,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SvgIconButton(
+                          svgPath: ServiceAssets.exitIcon,
+                          color: Colors.red,
+                          onTap: () => Navigator.of(context).pop(),
+                          label: "나가기",
+                        ),
+                        SvgIconButton(
+                          svgPath: ServiceAssets.trashIcon,
+                          onTap: () => showDeleteDialog(),
+                          label: "삭제하기",
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-            if (viewModel.state.isLoading)
-              Container(
-                color: Colors.black.withOpacity(0.5),
-                child: const Center(child: CircularProgressIndicator()),
+                ],
               ),
-          ],
-        ),
       ),
     );
   }

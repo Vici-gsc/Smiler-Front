@@ -43,6 +43,7 @@ class StatisticsContainer extends StatefulWidget {
 
 class _StatisticsContainerState extends State<StatisticsContainer>
     with TickerProviderStateMixin {
+  static const _spacing = 2.0;
   late final AnimationController _animController;
   late final Animation<Offset> _animOffset;
 
@@ -76,15 +77,18 @@ class _StatisticsContainerState extends State<StatisticsContainer>
                   widget.header!,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
+              if (widget.header != null) const SizedBox(height: _spacing),
               Text(
                 widget.title,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
+              if (widget.description != null) const SizedBox(height: _spacing),
               if (widget.description != null)
                 Text(
                   widget.description!,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
+              if (widget.footer != null) const SizedBox(height: _spacing),
               if (widget.footer != null)
                 Text(
                   widget.footer!,
