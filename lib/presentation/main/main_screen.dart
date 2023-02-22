@@ -1,7 +1,9 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smiler/presentation/component/atom/svg_icon_button.dart';
 import 'package:smiler/presentation/main/main_view_model.dart';
+import 'package:smiler/ui/service_assets.dart';
 
 import '../../ui/service_colors.dart';
 import '../component/organism/main_menu_list.dart';
@@ -19,6 +21,20 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainViewModel>();
 
+    showHelpDialog() {
+      showDialog(
+        context: context,
+        builder: (dialogContext) => YesNoDialog(
+            title: "Smiler는 표정을 연습하는 서비스입니다.",
+            description:
+                "표정 따라하기: 사진의 표정을 따라해보아요.\n감정 단어 맞추기: 사진을 보고 감정을 맞춰보아요.\n표정 지어보기: 감정에 맞는 표정을 지어보아요.",
+            negativeButtonLabel: "닫기",
+            onNegativeButtonTap: () {
+              Navigator.of(dialogContext).pop();
+            }),
+      );
+    }
+
     return Scaffold(
       backgroundColor: ServiceColors.background,
       body: SafeArea(
@@ -28,9 +44,22 @@ class _MainScreenState extends State<MainScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                "Smiler",
-                style: Theme.of(context).textTheme.titleLarge,
+              Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    child: Text(
+                      "Smiler",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                  SvgIconButton(
+                    svgPath: ServiceAssets.helpIcon,
+                    onTap: () => showHelpDialog(),
+                  ),
+                ],
               ),
               MainMenuList(items: [
                 MainMenuListItem(

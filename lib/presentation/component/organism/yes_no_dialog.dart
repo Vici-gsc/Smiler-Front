@@ -52,7 +52,7 @@ class YesNoDialog extends StatelessWidget {
             style: Theme.of(context).textTheme.titleSmall,
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: 15),
           Text(
             description,
             style: Theme.of(context).textTheme.bodyMedium,
