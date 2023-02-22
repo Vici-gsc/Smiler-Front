@@ -8,6 +8,7 @@ import 'package:smiler/ui/service_assets.dart';
 import '../../ui/service_colors.dart';
 import '../component/organism/main_menu_list.dart';
 import '../component/organism/yes_no_dialog.dart';
+import '../statistics/statistics_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -40,46 +41,61 @@ class _MainScreenState extends State<MainScreen> {
       body: SafeArea(
         child: SizedBox(
           width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Stack(
             children: [
-              Stack(
-                alignment: Alignment.topRight,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    child: Text(
-                      "Smiler",
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
+                  Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 5),
+                        child: Text(
+                          "Smiler",
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ),
+                      SvgIconButton(
+                        svgPath: ServiceAssets.helpIcon,
+                        onTap: () => showHelpDialog(),
+                      ),
+                    ],
                   ),
-                  SvgIconButton(
-                    svgPath: ServiceAssets.helpIcon,
-                    onTap: () => showHelpDialog(),
-                  ),
+                  MainMenuList(items: [
+                    MainMenuListItem(
+                        text: "표정 따라하기",
+                        onTap: () {
+                          viewModel.onFaceImitatingMenuTapped(context);
+                        },
+                        disabled: !viewModel.canUseCamera),
+                    MainMenuListItem(
+                        text: "감정 단어 맞추기",
+                        onTap: () {
+                          viewModel.onWordChoiceMenuTapped(context);
+                        }),
+                    MainMenuListItem(
+                        text: "표정 지어보기",
+                        onTap: () {
+                          viewModel.onFaceExpressionMenuTapped(context);
+                        },
+                        disabled: !viewModel.canUseCamera),
+                  ]),
                 ],
               ),
-              MainMenuList(items: [
-                MainMenuListItem(
-                    text: "표정 따라하기",
-                    onTap: () {
-                      viewModel.onFaceImitatingMenuTapped(context);
-                    },
-                    disabled: !viewModel.canUseCamera),
-                MainMenuListItem(
-                    text: "감정 단어 맞추기",
-                    onTap: () {
-                      viewModel.onWordChoiceMenuTapped(context);
-                    }),
-                MainMenuListItem(
-                    text: "표정 지어보기",
-                    onTap: () {
-                      viewModel.onFaceExpressionMenuTapped(context);
-                    },
-                    disabled: !viewModel.canUseCamera),
-              ]),
+              Positioned(
+                right: 15,
+                top: 15,
+                child: SvgIconButton(
+                  svgPath: ServiceAssets.staticsIcon,
+                  iconWidth: 25,
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const StatisticsScreen(),
+                  )),
+                ),
+              ),
             ],
           ),
         ),

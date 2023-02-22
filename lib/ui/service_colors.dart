@@ -12,5 +12,5 @@ class ServiceColors {
   static const Color alertRed = Color(0xFFFF8080);
   static const Color correctGreen = Color(0xFF00D715);
 
-  static const Color background = Color(0xFFFFFFFF);
+  static const Color background = Color(0xFFF3F3F3);
 }

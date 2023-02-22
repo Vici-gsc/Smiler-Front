@@ -79,7 +79,6 @@ class MockHistoryRepositoryImpl extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.Result<void>>);
-
   @override
   _i4.Future<_i2.Result<void>> deleteAllHistories() => (super.noSuchMethod(
         Invocation.method(
@@ -104,11 +103,12 @@ class MockHistoryRepositoryImpl extends _i1.Mock
       ) as _i4.Future<_i2.Result<void>>);
 
   @override
-  _i4.Future<_i2.Result<List<_i5.History>>> getHistories() =>
+  _i4.Future<_i2.Result<List<_i5.History>>> getHistories({int? limit}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getHistories,
           [],
+          {#limit: limit},
         ),
         returnValue: _i4.Future<_i2.Result<List<_i5.History>>>.value(
             _FakeResult_0<List<_i5.History>>(
@@ -116,6 +116,7 @@ class MockHistoryRepositoryImpl extends _i1.Mock
           Invocation.method(
             #getHistories,
             [],
+            {#limit: limit},
           ),
         )),
         returnValueForMissingStub:
@@ -125,6 +126,7 @@ class MockHistoryRepositoryImpl extends _i1.Mock
           Invocation.method(
             #getHistories,
             [],
+            {#limit: limit},
           ),
         )),
       ) as _i4.Future<_i2.Result<List<_i5.History>>>);

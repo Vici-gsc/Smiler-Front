@@ -50,9 +50,9 @@ class HistoryRepositoryImpl implements HistoryRepository {
 
   /// 모든 풀이 이력을 가져옵니다.
   @override
-  Future<Result<List<History>>> getHistories() async {
+  Future<Result<List<History>>> getHistories({int? limit}) async {
     try {
-      final result = await _database.query(_tableName);
+      final result = await _database.query(_tableName, limit: limit);
       final histories = result.map((e) => _toHistory(e)).toList();
       return Result.success(histories);
     } catch (e) {

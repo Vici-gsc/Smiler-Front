@@ -8,12 +8,15 @@ import 'package:smiler/domain/repository/expression_repository.dart';
 import 'package:smiler/domain/repository/history_repository.dart';
 import 'package:smiler/domain/repository/imitation_repository.dart';
 import 'package:smiler/domain/repository/word_repository.dart';
+import 'package:smiler/domain/usecase/delete_histories_use_case.dart';
+import 'package:smiler/domain/usecase/get_histories_use_case.dart';
 import 'package:smiler/domain/usecase/get_photo_use_case.dart';
 import 'package:smiler/domain/usecase/get_word_question_use_case.dart';
 import 'package:smiler/domain/usecase/score_expression_use_case.dart';
 import 'package:smiler/domain/usecase/score_word_question_use_case.dart';
 import 'package:smiler/presentation/expression/expression_view_model.dart';
 import 'package:smiler/presentation/main/main_view_model.dart';
+import 'package:smiler/presentation/statistics/statistics_view_model.dart';
 import 'package:smiler/presentation/word/word_view_model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -54,12 +57,18 @@ Future<List<SingleChildWidget>> getProviders() async {
   GetPhotoUseCase getPhotoUseCase = GetPhotoUseCase(imitationRepository);
   GetWordQuestionUseCase getWordQuestionUseCase =
       GetWordQuestionUseCase(wordRepository);
+
   ScoreExpressionUseCase scoreExpressionUseCase =
       ScoreExpressionUseCase(expressionRepository, historyRepository);
   ScoreImitationUseCase scoreImitationUseCase =
       ScoreImitationUseCase(imitationRepository, historyRepository);
   ScoreWordQuestionUseCase scoreWordQuestionUseCase =
       ScoreWordQuestionUseCase(historyRepository);
+
+  GetHistoriesUseCase getHistoriesUseCase =
+      GetHistoriesUseCase(historyRepository);
+  DeleteHistoriesUseCase deleteHistoriesUseCase =
+      DeleteHistoriesUseCase(historyRepository);
 
   // View Models
   MainViewModel mainViewModel = MainViewModel(camera != null);
@@ -69,11 +78,14 @@ Future<List<SingleChildWidget>> getProviders() async {
       WordViewModel(getWordQuestionUseCase, scoreWordQuestionUseCase);
   ExpressionViewModel expressionViewModel =
       ExpressionViewModel(camera, scoreExpressionUseCase);
+  StatisticsViewModel statisticsViewModel =
+      StatisticsViewModel(getHistoriesUseCase, deleteHistoriesUseCase);
 
   return [
     ChangeNotifierProvider(create: (_) => mainViewModel),
     ChangeNotifierProvider(create: (_) => imitatingViewModel),
     ChangeNotifierProvider(create: (_) => wordViewModel),
     ChangeNotifierProvider(create: (_) => expressionViewModel),
+    ChangeNotifierProvider(create: (_) => statisticsViewModel),
   ];
 }

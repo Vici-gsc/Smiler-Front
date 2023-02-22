@@ -118,6 +118,7 @@ class ImitatingViewModel with ChangeNotifier {
         _state = _state.copyWith(
           isLoading: false,
         );
+        notifyListeners();
         onError?.call(error);
       },
     );
