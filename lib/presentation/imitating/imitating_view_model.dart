@@ -83,7 +83,7 @@ class ImitatingViewModel with ChangeNotifier {
 
   void checkAnswer(
     String? imagePath, {
-    Function(bool isCorrect)? onFinished,
+    Function(bool isCorrect, String userAnswer)? onFinished,
     Function(String error)? onError,
   }) async {
     // 로딩 시작
@@ -106,7 +106,10 @@ class ImitatingViewModel with ChangeNotifier {
             correctAnswerCount: _state.correctAnswerCount + 1,
           );
         }
-        onFinished?.call(scoringResult.isCorrect);
+        onFinished?.call(
+          scoringResult.isCorrect,
+          scoringResult.userAnswer.koreanName,
+        );
         load(onError: onError);
         // load에서 로딩이 다시 시작 후 종료되므로, 여기서 로딩 종료를 하지 않음
       },

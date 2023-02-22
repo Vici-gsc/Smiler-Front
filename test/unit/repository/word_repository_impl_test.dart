@@ -8,7 +8,7 @@ import "package:smiler/domain/model/word_question.dart";
 import "package:test/test.dart";
 
 @GenerateNiceMocks([MockSpec<Api>()])
-import 'api.mocks.dart';
+import 'word_repository_impl_test.mocks.dart';
 
 main() {
   group("getWordQuestion", () {
@@ -18,9 +18,9 @@ main() {
 
       when(api.get(path)).thenAnswer(
         (_) async => const Result.success({
-          "image": "SOME_IMAGE",
-          "emotionList": ["natural", "happy", "hurt", "embarrass", "angry"],
-          "correctEmotion": "hurt",
+          "photo_url": "SOME_IMAGE",
+          "feeling_list": ["natural", "happy", "hurt", "embarrass", "angry"],
+          "answer": "hurt",
         }),
       );
 

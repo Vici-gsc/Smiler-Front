@@ -53,7 +53,7 @@ class HistoryRepositoryImpl implements HistoryRepository {
   Future<Result<List<History>>> getHistories() async {
     try {
       final result = await _database.query(_tableName);
-      final histories = result.map(_toHistory).toList();
+      final histories = result.map((e) => _toHistory(e)).toList();
       return Result.success(histories);
     } catch (e) {
       return const Result.failure("기록을 가져오는데 실패하였습니다.");

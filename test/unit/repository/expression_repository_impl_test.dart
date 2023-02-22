@@ -8,7 +8,7 @@ import "package:smiler/domain/model/scoring_result.dart";
 import "package:test/test.dart";
 
 @GenerateNiceMocks([MockSpec<Api>()])
-import 'api.mocks.dart';
+import 'expression_repository_impl_test.mocks.dart';
 
 main() {
   group("isCorrectExpression", () {
@@ -16,10 +16,10 @@ main() {
       final api = MockApi();
       const path = "/expression?feeling=happy";
 
-      when(api.postFile(path, any)).thenAnswer(
+      when(api.postFile(path, any, "file")).thenAnswer(
         (_) async => const Result.success({
-          "isCorrect": true,
-          "userAnswer": "happy",
+          "match": true,
+          "recognize": "happy",
         }),
       );
 
@@ -42,10 +42,10 @@ main() {
       final api = MockApi();
       const path = "/expression?feeling=happy";
 
-      when(api.postFile(path, "SOME_IMAGE")).thenAnswer(
+      when(api.postFile(path, "SOME_IMAGE", "file")).thenAnswer(
         (_) async => const Result.success({
-          "isCorrect": false,
-          "userAnswer": "sad",
+          "match": false,
+          "recognize": "sad",
         }),
       );
 
@@ -68,7 +68,7 @@ main() {
       final api = MockApi();
       const path = "/expression?feeling=happy";
 
-      when(api.postFile(path, "SOME_IMAGE")).thenAnswer(
+      when(api.postFile(path, "SOME_IMAGE", "file")).thenAnswer(
         (_) async => const Result.failure("요청 실패"),
       );
 
@@ -89,7 +89,7 @@ main() {
       final api = MockApi();
       const path = "/expression?feeling=happy";
 
-      when(api.postFile(path, "SOME_IMAGE")).thenAnswer(
+      when(api.postFile(path, "SOME_IMAGE", "file")).thenAnswer(
         (_) async => const Result.failure("요청 실패"),
       );
 

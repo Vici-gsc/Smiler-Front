@@ -9,7 +9,7 @@ class Api {
   static const Duration _timeLimit = Duration(seconds: 10);
 
   /// 기본 URL입니다. 이후 메서드에서 [path]를 지정하면 자동으로 결합됩니다.
-  static const String baseUrl = "localhost";
+  static const String baseUrl = "http://localhost:8000";
 
   /// 기본 오류 메시지.
   static const String defaultErrorMessage =
@@ -56,13 +56,13 @@ class Api {
   /// 파일 하나를 multipart/form-data의 형식으로 업로드합니다.
   ///
   /// [path] 지정시 자동으로 [baseUrl]과 결합하여 해당 주소로 [filePath]에 있는 파일을 전송합니다.
-  /// [headers]는 HTTP 요청 헤더에 넣습니다.
+  /// [headers]는 HTTP 요청 헤더에 넣습니다. [fileId]는 서버로 전송될 때 파일의 ID입니다.
   /// 반환 값은 [Result]로, 성공 시 [Result.success]를, 실패 시 [Result.failure]를 반환합니다.
-  Future<Result<dynamic>> postFile(String path, String filePath,
+  Future<Result<dynamic>> postFile(String path, String filePath, String fileId,
       {Map<String, String>? headers}) async {
     final request = http.MultipartRequest('POST', Uri.parse(baseUrl + path));
     request.headers.addAll(headers ?? {});
-    request.files.add(await http.MultipartFile.fromPath('file', filePath));
+    request.files.add(await http.MultipartFile.fromPath(fileId, filePath));
 
     final streamedResponse = await _client.send(request);
     final response = await http.Response.fromStream(streamedResponse);
@@ -103,14 +103,14 @@ class Api {
         case HttpMethod.post:
           response = await _client
               .post(
-            Uri.parse(baseUrl + path),
+                Uri.parse(baseUrl + path),
                 headers: sendHeaders,
                 body: body,
               )
               .timeout(_timeLimit);
       }
 
-      print(response);
+      print(response.body);
       if (response.statusCode ~/ 100 == 2) {
         return Result.success(jsonDecode(response.body));
       } else {

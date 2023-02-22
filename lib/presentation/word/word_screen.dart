@@ -24,8 +24,12 @@ class _WordScreenState extends State<WordScreen> {
 
     void checkAnswer(String? word) => viewModel.checkAnswer(
           word,
-          onFinished: (isCorrect) =>
-              ScoringPopup(isCorrect: isCorrect).show(context),
+          onFinished: (isCorrect, correctAnswer) {
+            ScoringPopup(
+              isCorrect: isCorrect,
+              description: "정답은 '$correctAnswer'입니다.",
+            ).show(context);
+          },
           onError: (error) => AlertFlushBar(error).show(context),
         );
 
