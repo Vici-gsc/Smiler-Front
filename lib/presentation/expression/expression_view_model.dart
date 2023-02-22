@@ -51,7 +51,7 @@ class ExpressionViewModel with ChangeNotifier {
 
   void checkAnswer(
     String? imagePath, {
-    Function(bool isCorrect)? onFinished,
+    Function(bool isCorrect, String userAnswer)? onFinished,
     Function(String error)? onError,
   }) async {
     // 로딩 시작
@@ -74,7 +74,10 @@ class ExpressionViewModel with ChangeNotifier {
             correctAnswerCount: _state.correctAnswerCount + 1,
           );
         }
-        onFinished?.call(scoringResult.isCorrect);
+        onFinished?.call(
+          scoringResult.isCorrect,
+          scoringResult.userAnswer.koreanName,
+        );
         load();
         // load에서 로딩이 종료되므로, 여기서 로딩 종료를 하지 않음
       },

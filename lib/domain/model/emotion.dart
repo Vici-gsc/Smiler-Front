@@ -2,7 +2,7 @@ import 'dart:math';
 
 /// 퀴즈에 사용되는 감정입니다.
 enum Emotion {
-  natural("natural", "중립"),
+  natural("natural", "정색"),
   happy("happy", "행복"),
   embarrass("embarrass", "당황"),
   angry("angry", "분노"),
