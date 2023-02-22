@@ -16,7 +16,7 @@ class WordViewModel with ChangeNotifier {
 
   WordState _state = WordState(
     // 맞거나 틀리거나 스킵한 문제의 수
-    questionCount: 0,
+    questionCount: -1,
     // 맞춘 문제의 수
     correctAnswerCount: 0,
     // 정답 감정
@@ -33,7 +33,7 @@ class WordViewModel with ChangeNotifier {
 
   void exit() {
     _state = WordState(
-      questionCount: 0,
+      questionCount: -1,
       correctAnswerCount: 0,
       answerEmotion: null,
       emotionChoices: [],
