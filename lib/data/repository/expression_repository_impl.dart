@@ -22,13 +22,14 @@ class ExpressionRepositoryImpl implements ExpressionRepository {
     final result = await _api.postFile(
       "/expression?feeling=$answerEmotionName",
       imagePath,
+      "file",
     );
 
     return result.when(
       success: (data) {
         final scoringResult = ScoringResult(
-          isCorrect: data["isCorrect"],
-          userAnswer: Emotion.fromEnglishName(data["userAnswer"]),
+          isCorrect: data["match"],
+          userAnswer: Emotion.fromEnglishName(data["recognize"]),
         );
         return Result.success(scoringResult);
       },

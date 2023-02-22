@@ -24,7 +24,7 @@ class ImitationRepositoryImpl implements ImitationRepository {
 
     return result.when(
       success: (data) {
-        final imageUrl = data["image"];
+        final imageUrl = data["photo_url"];
         return Result.success(imageUrl);
       },
       failure: (error) => Result.failure(error),
@@ -41,13 +41,14 @@ class ImitationRepositoryImpl implements ImitationRepository {
     final result = await _api.postFile(
       "/imitation/face?feeling=$answerEmotionName",
       imagePath,
+      "file",
     );
 
     return result.when(
       success: (data) {
         final scoringResult = ScoringResult(
-          isCorrect: data["isCorrect"],
-          userAnswer: Emotion.fromEnglishName(data["userAnswer"]),
+          isCorrect: data["match"],
+          userAnswer: Emotion.fromEnglishName(data["recognize"]),
         );
         return Result.success(scoringResult);
       },

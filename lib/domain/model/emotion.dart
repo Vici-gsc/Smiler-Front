@@ -21,12 +21,13 @@ enum Emotion {
 
   /// 감정의 영어 이름을 기반으로 감정을 반환합니다.
   static Emotion fromEnglishName(String englishName) {
-    return Emotion.values.firstWhere((e) => e.englishName == englishName);
+    return Emotion.values
+        .firstWhere((e) => e.englishName == englishName.toLowerCase());
   }
 
   /// 감정의 한국어 이름을 기반으로 감정을 반환합니다.
   static Emotion fromKoreanName(String koreanName) {
-    return Emotion.values.firstWhere((e) => e.englishName == koreanName);
+    return Emotion.values.firstWhere((e) => e.koreanName == koreanName);
   }
 
   /// 감정의 인덱스를 기반으로 감정을 반환합니다.
