@@ -14,16 +14,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ScoringResult _$ScoringResultFromJson(Map<String, dynamic> json) {
-  return _ScoringResult.fromJson(json);
-}
-
 /// @nodoc
 mixin _$ScoringResult {
   bool get isCorrect => throw _privateConstructorUsedError;
   Emotion get userAnswer => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ScoringResultCopyWith<ScoringResult> get copyWith =>
       throw _privateConstructorUsedError;
@@ -106,12 +101,9 @@ class __$$_ScoringResultCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_ScoringResult implements _ScoringResult {
   _$_ScoringResult({required this.isCorrect, required this.userAnswer});
-
-  factory _$_ScoringResult.fromJson(Map<String, dynamic> json) =>
-      _$$_ScoringResultFromJson(json);
 
   @override
   final bool isCorrect;
@@ -134,7 +126,6 @@ class _$_ScoringResult implements _ScoringResult {
                 other.userAnswer == userAnswer));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, isCorrect, userAnswer);
 
@@ -143,22 +134,12 @@ class _$_ScoringResult implements _ScoringResult {
   @pragma('vm:prefer-inline')
   _$$_ScoringResultCopyWith<_$_ScoringResult> get copyWith =>
       __$$_ScoringResultCopyWithImpl<_$_ScoringResult>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ScoringResultToJson(
-      this,
-    );
-  }
 }
 
 abstract class _ScoringResult implements ScoringResult {
   factory _ScoringResult(
       {required final bool isCorrect,
       required final Emotion userAnswer}) = _$_ScoringResult;
-
-  factory _ScoringResult.fromJson(Map<String, dynamic> json) =
-      _$_ScoringResult.fromJson;
 
   @override
   bool get isCorrect;

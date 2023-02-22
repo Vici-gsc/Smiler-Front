@@ -80,7 +80,7 @@ class WordViewModel with ChangeNotifier {
 
   void checkAnswer(
     String? selectedWord, {
-    Function(bool isCorrect)? onFinished,
+    Function(bool isCorrect, String correctAnswer)? onFinished,
     Function(String error)? onError,
   }) async {
     // 로딩 시작
@@ -103,7 +103,7 @@ class WordViewModel with ChangeNotifier {
             correctAnswerCount: _state.correctAnswerCount + 1,
           );
         }
-        onFinished?.call(isCorrect);
+        onFinished?.call(isCorrect, _state.answerEmotion!.koreanName);
         load(onError: onError);
         // load에서 로딩이 다시 시작 후 종료되므로, 여기서 로딩 종료를 하지 않음
       },

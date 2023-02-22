@@ -22,11 +22,11 @@ class WordRepositoryImpl implements WordRepository {
     return result.when(
       success: (data) {
         final wordQuestion = WordQuestion(
-          imagePath: data["image"],
-          emotionList: data["emotionList"]
-              .map<Emotion>(Emotion.fromEnglishName)
+          imagePath: data["photo_url"],
+          emotionList: data["feeling_list"]
+              .map<Emotion>((e) => Emotion.fromEnglishName(e))
               .toList(),
-          correctEmotion: Emotion.fromEnglishName(data["correctEmotion"]),
+          correctEmotion: Emotion.fromEnglishName(data["answer"]),
         );
         return Result.success(wordQuestion);
       },
