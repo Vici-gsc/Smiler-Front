@@ -74,7 +74,6 @@ class MockApi extends _i1.Mock implements _i3.Api {
           ),
         )),
       ) as _i4.Future<_i2.Result<dynamic>>);
-
   @override
   _i4.Future<_i2.Result<dynamic>> get(
     String? path, {
@@ -105,7 +104,6 @@ class MockApi extends _i1.Mock implements _i3.Api {
           ),
         )),
       ) as _i4.Future<_i2.Result<dynamic>>);
-
   @override
   _i4.Future<_i2.Result<dynamic>> postFile(
     String? path,
@@ -150,7 +148,6 @@ class MockApi extends _i1.Mock implements _i3.Api {
           ),
         )),
       ) as _i4.Future<_i2.Result<dynamic>>);
-
   @override
   _i4.Future<_i2.Result<dynamic>> request(
     _i3.HttpMethod? method,
