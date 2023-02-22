@@ -8,6 +8,8 @@ import 'package:smiler/domain/repository/expression_repository.dart';
 import 'package:smiler/domain/repository/history_repository.dart';
 import 'package:smiler/domain/repository/imitation_repository.dart';
 import 'package:smiler/domain/repository/word_repository.dart';
+import 'package:smiler/domain/usecase/delete_histories_use_case.dart';
+import 'package:smiler/domain/usecase/get_histories_use_case.dart';
 import 'package:smiler/domain/usecase/get_photo_use_case.dart';
 import 'package:smiler/domain/usecase/get_word_question_use_case.dart';
 import 'package:smiler/domain/usecase/score_expression_use_case.dart';
@@ -54,12 +56,18 @@ Future<List<SingleChildWidget>> getProviders() async {
   GetPhotoUseCase getPhotoUseCase = GetPhotoUseCase(imitationRepository);
   GetWordQuestionUseCase getWordQuestionUseCase =
       GetWordQuestionUseCase(wordRepository);
+
   ScoreExpressionUseCase scoreExpressionUseCase =
       ScoreExpressionUseCase(expressionRepository, historyRepository);
   ScoreImitationUseCase scoreImitationUseCase =
       ScoreImitationUseCase(imitationRepository, historyRepository);
   ScoreWordQuestionUseCase scoreWordQuestionUseCase =
       ScoreWordQuestionUseCase(historyRepository);
+
+  GetHistoriesUseCase getHistoriesUseCase =
+      GetHistoriesUseCase(historyRepository);
+  DeleteHistoriesUseCase deleteHistoriesUseCase =
+      DeleteHistoriesUseCase(historyRepository);
 
   // View Models
   MainViewModel mainViewModel = MainViewModel(camera != null);
