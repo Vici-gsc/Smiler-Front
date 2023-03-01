@@ -64,9 +64,9 @@ class ScoringPopup extends StatelessWidget {
 
   /// 팝업을 화면에 표시합니다.
   ///
-  /// 기존 [showDialog] 함수와는 달리 2초 후 자동으로 팝업이 닫힙니다. 사용에 유의해주세요.
+  /// 기존 [showDialog] 함수와는 달리 3초 후 자동으로 팝업이 닫힙니다. 사용에 유의해주세요.
   void show(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 2000), () {
+    Future.delayed(const Duration(milliseconds: 3000), () {
       Navigator.of(context).pop();
     });
     showDialog(

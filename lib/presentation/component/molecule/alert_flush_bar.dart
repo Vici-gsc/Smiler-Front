@@ -19,7 +19,7 @@ class AlertFlushBar {
       ),
       flushbarPosition: FlushbarPosition.TOP,
       animationDuration: const Duration(milliseconds: 300),
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 3),
       margin: const EdgeInsets.all(10),
       borderRadius: BorderRadius.circular(10),
     );
