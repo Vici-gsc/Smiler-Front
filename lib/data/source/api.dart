@@ -9,7 +9,7 @@ class Api {
   static const Duration _timeLimit = Duration(seconds: 10);
 
   /// 기본 URL입니다. 이후 메서드에서 [path]를 지정하면 자동으로 결합됩니다.
-  static const String baseUrl = "http://172.30.1.43:8000";
+  static const String baseUrl = "http://202.30.30.3:3909";
 
   /// 기본 오류 메시지.
   static const String defaultErrorMessage =
