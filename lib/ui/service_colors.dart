@@ -13,4 +13,6 @@ class ServiceColors {
   static const Color correctGreen = Color(0xFF00D715);
 
   static const Color background = Color(0xFFF3F3F3);
+  static const Color shimmerBase = Color(0xFFE0E0E0);
+  static const Color shimmerHighlight = Color(0xFFF5F5F5);
 }
