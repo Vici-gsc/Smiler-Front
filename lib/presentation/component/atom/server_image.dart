@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../../ui/service_colors.dart';
 
 /// 서버에서 불러온 이미지를 표시하는 위젯입니다.
 class ServerImage extends StatelessWidget {
   /// 이미지의 URL입니다.
-  final String url;
+  final String? url;
 
   /// 서버에서 불러온 이미지를 표시하는 위젯을 생성합니다.
   ///
@@ -12,15 +15,32 @@ class ServerImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      url,
-      fit: BoxFit.cover,
-      loadingBuilder: (context, widget, progress) {
-        if (progress == null) return widget;
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
+    return url == null
+        ? Shimmer.fromColors(
+            baseColor: ServiceColors.shimmerBase,
+            highlightColor: ServiceColors.shimmerHighlight,
+            child: const SizedBox(),
+          )
+        : Image.network(
+            url!,
+            fit: BoxFit.cover,
+            loadingBuilder: (context, widget, progress) => Shimmer.fromColors(
+              baseColor: ServiceColors.shimmerBase,
+              highlightColor: ServiceColors.shimmerHighlight,
+              enabled: progress == null,
+              child: widget,
+            ),
+            errorBuilder: (context, error, stackTrace) => Container(
+              color: ServiceColors.background,
+              child: Center(
+                  child: Text(
+                '이미지를 불러올 수 없습니다.',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .apply(color: ServiceColors.wrongRed),
+              )),
+            ),
+          );
   }
 }
