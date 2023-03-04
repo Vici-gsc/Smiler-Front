@@ -19,7 +19,8 @@ class ServerImage extends StatelessWidget {
         ? Shimmer.fromColors(
             baseColor: ServiceColors.shimmerBase,
             highlightColor: ServiceColors.shimmerHighlight,
-            child: const SizedBox(),
+            period: const Duration(milliseconds: 1000),
+            child: Container(color: Colors.white),
           )
         : Image.network(
             url!,
@@ -28,18 +29,20 @@ class ServerImage extends StatelessWidget {
               baseColor: ServiceColors.shimmerBase,
               highlightColor: ServiceColors.shimmerHighlight,
               enabled: progress == null,
+              period: const Duration(milliseconds: 1000),
               child: widget,
             ),
             errorBuilder: (context, error, stackTrace) => Container(
               color: ServiceColors.background,
               child: Center(
-                  child: Text(
-                '이미지를 불러올 수 없습니다.',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .apply(color: ServiceColors.wrongRed),
-              )),
+                child: Text(
+                  '이미지를 불러올 수 없습니다.',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .apply(color: ServiceColors.wrongRed),
+                ),
+              ),
             ),
           );
   }
