@@ -25,13 +25,14 @@ class ServerImage extends StatelessWidget {
         : Image.network(
             url!,
             fit: BoxFit.cover,
-            loadingBuilder: (context, widget, progress) => Shimmer.fromColors(
-              baseColor: ServiceColors.shimmerBase,
-              highlightColor: ServiceColors.shimmerHighlight,
-              enabled: progress == null,
-              period: const Duration(milliseconds: 1000),
-              child: widget,
-            ),
+            loadingBuilder: (context, widget, progress) => progress == null
+                ? widget
+                : Shimmer.fromColors(
+                    baseColor: ServiceColors.shimmerBase,
+                    highlightColor: ServiceColors.shimmerHighlight,
+                    period: const Duration(milliseconds: 1000),
+                    child: widget,
+                  ),
             errorBuilder: (context, error, stackTrace) => Container(
               color: ServiceColors.background,
               child: Center(
