@@ -32,6 +32,7 @@ class _ExpressionScreenState extends State<ExpressionScreen> {
 
     return GameTemplate(
       headerString: "표정을 지어 보아요!",
+      headerDescriptionString: "카메라에서 30cm 정도 떨어져 촬영해주세요.",
       onSkip: () => checkAnswer(null),
       onExit: () => viewModel.exit(),
       currentQuestionCount: viewModel.state.questionCount,

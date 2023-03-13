@@ -7,8 +7,11 @@ import '../../../ui/service_colors.dart';
 
 /// 게임 화면의 템플릿 위젯입니다.
 class GameTemplate extends StatelessWidget {
-  /// 헤더에 표시할 문자열입니다.
+  /// 헤더에 크게 표시할 문자열입니다.
   final String headerString;
+
+  /// 헤더에 작게 표시할 문자열입니다.
+  final String? headerDescriptionString;
 
   /// 위쪽에 표시할 위젯입니다.
   final Widget? upperChild;
@@ -40,6 +43,7 @@ class GameTemplate extends StatelessWidget {
   const GameTemplate(
       {Key? key,
       required this.headerString,
+      this.headerDescriptionString,
       this.upperChild,
       this.lowerChild,
       this.onSkip,
@@ -63,12 +67,23 @@ class GameTemplate extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        headerString,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          headerString,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        if (headerDescriptionString != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(
+                              headerDescriptionString!,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                   const Divider(

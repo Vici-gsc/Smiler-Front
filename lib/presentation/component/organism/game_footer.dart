@@ -39,7 +39,7 @@ class GameFooter extends StatelessWidget {
             label: "그만하기",
           ),
           Text(
-            "$currentQuestionCount문제째 도전 중",
+            "${currentQuestionCount + 1}문제째 도전 중",
             style: Theme.of(context).textTheme.titleSmall,
           ),
           SvgIconButton(
