@@ -21,10 +21,11 @@ class _ExpressionScreenState extends State<ExpressionScreen> {
 
     void checkAnswer(String? imagePath) => viewModel.checkAnswer(
           imagePath,
-          onFinished: (isCorrect, userAnswer) {
+          onFinished: (isCorrect, userAnswer, isSkipped) {
             ScoringPopup(
               isCorrect: isCorrect,
-              description: "인식된 표정은 '$userAnswer'입니다.",
+              description:
+                  isSkipped ? "문제를 스킵했습니다." : "인식된 표정은 '$userAnswer'입니다.",
             ).show(context);
           },
           onError: (error) => AlertFlushBar(error).show(context),

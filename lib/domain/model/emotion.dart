@@ -41,6 +41,7 @@ enum Emotion {
   /// 랜덤으로 감정을 반환합니다. [exceptions]에 포함된 감정은 제외됩니다.
   static Emotion getRandomEmotion({List<Emotion>? exceptions}) {
     final targetEmotions = List.from(Emotion.values);
+    targetEmotions.remove(Emotion.skip);
 
     if (exceptions != null) {
       for (final exception in exceptions) {
