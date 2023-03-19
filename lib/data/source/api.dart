@@ -85,7 +85,6 @@ class Api {
     Map<String, String>? headers,
     Object? body,
   }) async {
-    print("$method $path");
     final sendHeaders = {...?headers};
 
     try {
@@ -110,14 +109,12 @@ class Api {
               .timeout(_timeLimit);
       }
 
-      print(response.body);
       if (response.statusCode ~/ 100 == 2) {
         return Result.success(jsonDecode(response.body));
       } else {
         return const Result.failure(defaultErrorMessage);
       }
     } catch (e) {
-      print(e);
       return const Result.failure(networkErrorMessage);
     }
   }
