@@ -25,7 +25,7 @@ main() {
             Emotion.angry,
             Emotion.sad,
             Emotion.happy,
-            Emotion.fear,
+            Emotion.embarrass,
           ],
         )),
       );

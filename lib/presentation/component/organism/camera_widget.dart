@@ -4,6 +4,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:smiler/presentation/component/molecule/camera_button.dart';
 
 import '../../../ui/service_colors.dart';
+import '../molecule/alert_flush_bar.dart';
 import '../molecule/modal_button.dart';
 
 /// 카메라 미리 보기와 촬영 버튼을 보여주는 위젯입니다.
@@ -75,20 +76,24 @@ class _CameraWidgetState extends State<CameraWidget> {
                       final path = await _controller.takePicture();
                       widget.onCaptured(path.path);
                     } catch (e) {
-                      print(e);
+                      AlertFlushBar("촬영에 실패하였습니다. 다시 시도해주세요.").show(context);
                     }
                   },
                 ),
               ],
             );
           } else if (snapshot.hasError) {
-            print(snapshot.error);
-            return _CameraPermissionWidget(onGranted: () {
-              setState(() {
-                _disposeCamera();
-                _initCamera();
-              });
-            });
+            return _CameraPermissionWidget(
+              onGranted: () {
+                setState(() {
+                  _disposeCamera();
+                  _initCamera();
+                });
+              },
+              onDenied: () {
+                AlertFlushBar("서비스 이용을 위해 카메라 권한을 허용해주세요.").show(context);
+              },
+            );
           } else {
             return const Center(child: CircularProgressIndicator());
           }
@@ -141,7 +146,6 @@ class _CameraPermissionWidget extends StatelessWidget {
             color: ServiceColors.primary,
             onTap: () async {
               final permissionStatus = await Permission.camera.request();
-
               if (permissionStatus.isGranted) {
                 // 권한이 허용되었을 경우
                 onGranted?.call();

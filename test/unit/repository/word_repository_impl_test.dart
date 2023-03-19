@@ -19,8 +19,8 @@ main() {
       when(api.get(path)).thenAnswer(
         (_) async => const Result.success({
           "photo_url": "SOME_IMAGE",
-          "feeling_list": ["natural", "happy", "hurt", "embarrass", "angry"],
-          "answer": "hurt",
+          "feeling_list": ["natural", "happy", "sad", "embarrass", "angry"],
+          "answer": "sad",
         }),
       );
 

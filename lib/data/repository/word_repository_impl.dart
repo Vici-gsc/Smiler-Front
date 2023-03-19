@@ -21,11 +21,19 @@ class WordRepositoryImpl implements WordRepository {
 
     return result.when(
       success: (data) {
+        final List<Emotion> emotions = [];
+
+        for (final String emotionName in data["feeling_list"]) {
+          try {
+            emotions.add(Emotion.fromEnglishName(emotionName));
+          } catch (e) {
+            return Result.failure("(서버 오류) 알 수 없는 감정이 수신되었습니다. ($emotionName)");
+          }
+        }
+
         final wordQuestion = WordQuestion(
           imagePath: data["photo_url"],
-          emotionList: data["feeling_list"]
-              .map<Emotion>((e) => Emotion.fromEnglishName(e))
-              .toList(),
+          emotionList: emotions,
           correctEmotion: Emotion.fromEnglishName(data["answer"]),
         );
         return Result.success(wordQuestion);

@@ -83,7 +83,7 @@ class ImitatingViewModel with ChangeNotifier {
 
   void checkAnswer(
     String? imagePath, {
-    Function(bool isCorrect, String userAnswer)? onFinished,
+    Function(bool isCorrect, String userAnswer, bool isSkipped)? onFinished,
     Function(String error)? onError,
   }) async {
     // 로딩 시작
@@ -109,6 +109,7 @@ class ImitatingViewModel with ChangeNotifier {
         onFinished?.call(
           scoringResult.isCorrect,
           scoringResult.userAnswer.koreanName,
+          scoringResult.userAnswer == Emotion.skip,
         );
         load(onError: onError);
         // load에서 로딩이 다시 시작 후 종료되므로, 여기서 로딩 종료를 하지 않음
