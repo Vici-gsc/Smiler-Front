@@ -33,7 +33,7 @@ class HistoryRepositoryImpl implements HistoryRepository {
       );
       return const Result.success(null);
     } catch (e) {
-      return const Result.failure("기록에 저장에 실패하였습니다.");
+      return const Result.failure("기록 저장에 실패하였습니다.");
     }
   }
 
@@ -44,7 +44,7 @@ class HistoryRepositoryImpl implements HistoryRepository {
       await _database.delete(_tableName);
       return const Result.success(null);
     } catch (e) {
-      return const Result.failure("기록을 삭제하는데 실패하였습니다.");
+      return const Result.failure("기록 삭제에 실패하였습니다.");
     }
   }
 
@@ -56,7 +56,7 @@ class HistoryRepositoryImpl implements HistoryRepository {
       final histories = result.map((e) => _toHistory(e)).toList();
       return Result.success(histories);
     } catch (e) {
-      return const Result.failure("기록을 가져오는데 실패하였습니다.");
+      return const Result.failure("기록 불러오기에 실패하였습니다. 이 현상이 계속되면 앱을 재설치해주세요.");
     }
   }
 
